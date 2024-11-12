@@ -10,7 +10,7 @@ const Welcome = () => {
 
   if (!loading && !isLogged) return <Redirect href="/signin" />;
 
-  if(!loading && isLogged) return <Redirect href="/b2" />;
+  if(!loading && isLogged) return <Redirect href="/profileHome" />;
 
   return (
     <SafeAreaView className="bg-primary h-full">
