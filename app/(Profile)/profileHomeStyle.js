@@ -115,42 +115,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-
-  courseCard: {
-    flexDirection: 'row',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    marginBottom: 10,
-    overflow: 'hidden',
-  },
-  courseImage: {
-    width: 100,
-    height: 100,
-  },
-  courseDetails: {
-    flex: 1,
-    padding: 10,
-  },
-  courseTitle: {
+  noCoursesText: {
     fontSize: 16,
-    fontWeight: 'bold',
-  },
-  courseAuthor: {
-    fontSize: 14,
-    color: '#666',
-  },
-  courseActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  courseButton: {
-    backgroundColor: '#007bff',
-    padding: 5,
-    borderRadius: 5,
-  },
-  courseButtonText: {
-    color: '#fff',
+    color: '#888',
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 export default styles
