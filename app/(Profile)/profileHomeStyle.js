@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   row4: {
+    padding: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
     marginHorizontal: 16,
@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#BCE0FD',
   },
   badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#e0e0e0',
     padding: 8,
     borderRadius: 20,
+    flexDirection: 'column', // Ensure items stack vertically
+    alignItems: 'center', // Center items horizontally
+    justifyContent: 'center',
   },
   badgeText: {
     marginRight: 8,
@@ -108,9 +108,10 @@ const styles = StyleSheet.create({
     height: 20,
   },
   coursesSection: {
-    padding: 16,
+    paddingLeft: 16,
   },
   coursesTitle: {
+    padding: 16,
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,

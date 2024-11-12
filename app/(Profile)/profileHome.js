@@ -84,11 +84,11 @@ const ProfileHome = () => {
           />
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>Algebra II</Text>
             <Image
               source={require('../../assets/images/MainLogo.png')}
               style={styles.starIcon}
             />
+            <Text style={styles.badgeText}>Algebra II</Text>
           </View>
         </View>
         <View style={styles.coursesSection}>
