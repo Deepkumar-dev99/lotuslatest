@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   View,
@@ -15,11 +14,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Picker } from '@react-native-picker/picker';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useNavigation } from '@react-navigation/native';
+import { saveUserCookies } from '../../cookie-handler/cookieHandler';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slice/user/userSlice';
 
 const UserDetails = () => {
   const { email: globalEmail, pass: globalPass } = useGlobalContext();
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
@@ -99,8 +101,9 @@ const UserDetails = () => {
       });
 
       const data = await response.json();
-
+      saveUserCookies(userData);
       if (response.ok) {
+        await dispatch(setUser(userData));
         Alert.alert('Success', 'Account created successfully!');
         console.log('Response Data:', data);
         navigation.navigate('verifyemail'); // Navigate to Verify Email page
@@ -133,7 +136,9 @@ const UserDetails = () => {
           value={userData.firstName}
           onChangeText={(value) => handleChange('firstName', value)}
         />
-        {errors.firstName && <Text style={styles.errorText}>{errors.firstName}</Text>}
+        {errors.firstName && (
+          <Text style={styles.errorText}>{errors.firstName}</Text>
+        )}
 
         <Text style={styles.label}>Last Name*</Text>
         <TextInput
@@ -143,7 +148,9 @@ const UserDetails = () => {
           value={userData.lastName}
           onChangeText={(value) => handleChange('lastName', value)}
         />
-        {errors.lastName && <Text style={styles.errorText}>{errors.lastName}</Text>}
+        {errors.lastName && (
+          <Text style={styles.errorText}>{errors.lastName}</Text>
+        )}
 
         <Text style={styles.label}>Username*</Text>
         <TextInput
@@ -153,7 +160,9 @@ const UserDetails = () => {
           value={userData.username}
           onChangeText={(value) => handleChange('username', value)}
         />
-        {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
+        {errors.username && (
+          <Text style={styles.errorText}>{errors.username}</Text>
+        )}
 
         <Text style={styles.label}>State/Province*</Text>
         <TextInput
@@ -163,7 +172,9 @@ const UserDetails = () => {
           value={userData.stateProvince}
           onChangeText={(value) => handleChange('stateProvince', value)}
         />
-        {errors.stateProvince && <Text style={styles.errorText}>{errors.stateProvince}</Text>}
+        {errors.stateProvince && (
+          <Text style={styles.errorText}>{errors.stateProvince}</Text>
+        )}
 
         <Text style={styles.label}>Account Type*</Text>
         <View style={styles.pickerContainer}>
@@ -178,7 +189,9 @@ const UserDetails = () => {
             <Picker.Item label="Admin" value="admin" />
           </Picker>
         </View>
-        {errors.accountType && <Text style={styles.errorText}>{errors.accountType}</Text>}
+        {errors.accountType && (
+          <Text style={styles.errorText}>{errors.accountType}</Text>
+        )}
 
         <Text style={styles.label}>School (optional)</Text>
         <TextInput
@@ -195,7 +208,10 @@ const UserDetails = () => {
           colors={['#EB7B38', '#E26662', '#E15890']}
           style={styles.createAccountButton}
         >
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={handleSubmit}
+          >
             <Text style={styles.buttonText}>Create Account</Text>
           </TouchableOpacity>
         </LinearGradient>

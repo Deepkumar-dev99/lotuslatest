@@ -357,6 +357,11 @@ import { useGlobalContext } from '../../context/GlobalProvider';
 import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import { getLogedInCookies } from '../../cookie-handler/cookieHandler';
+import { useDispatch, useSelector } from "react-redux";
+import saveUserOnCookies from '../../BackendProxy/cookiesProxy/saveUserCookies'
+import { setUser } from "../../redux/slice/user/userSlice";
+
 
 const CLIENT_ID = "753284500623-m3r3eq90q8jha72001v0874jvieeeiqf.apps.googleusercontent.com";
 
@@ -364,7 +369,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
   const { email: globalEmail, pass: globalPass, setIsLogged, setLoading } = useGlobalContext();
-
+  const dispatch = useDispatch();
   const [loginData, setLoginData] = useState({
     email: globalEmail,
     password: globalPass,
@@ -395,7 +400,7 @@ const Login = () => {
         const user = await userInfoResponse.json();
         setUserInfo(user);
         setIsLogged(true);
-        router.replace("/b2");
+        router.replace('/profileHome');
       } catch (error) {
         console.error('Error fetching user info:', error);
         Alert.alert('Error', 'Failed to get user information');
@@ -411,7 +416,7 @@ const Login = () => {
   const handleLoginSubmit = async () => {
     try {
       setLoading(true);
-      const API_URL = 'https://f5cc-142-126-97-217.ngrok-free.app/user/login-user';
+      const API_URL = 'http://localhost:5000/user/login-user';
 
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -426,12 +431,15 @@ const Login = () => {
       });
 
       const data = await response.json();
-
+      if (data.success) {
+       const savedUser = await saveUserOnCookies({...data.user})
+       await dispatch(setUser(data.user));
+      }
       if (response.ok && !data.errors) {
         setLoading(false);
         setIsLogged(true);
         Alert.alert('Success', 'Login successful!');
-        return router.replace("/b2");
+        return router.replace('/profileHome');
       } else {
         throw new Error(data.errors?.[0]?.message || 'Login failed');
       }
