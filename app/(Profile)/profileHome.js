@@ -82,7 +82,9 @@ const ProfileHome = () => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.row2}>
           <View style={styles.column3}>
-            <Text style={styles.text2}>{authUser?.firstName}{' '}{authUser.lastName}</Text>
+            <Text style={styles.userName}>
+              {authUser?.firstName} {authUser.lastName}
+            </Text>
             <Text style={styles.text3}>
               {authUser?.stateProvince},{authUser?.country}
             </Text>
@@ -94,25 +96,28 @@ const ProfileHome = () => {
             style={styles.profileImage}
           />
 
-          <View style={styles.column4}>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>Algebra II</Text>
             <Image
-              source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-              resizeMode={'stretch'}
-              style={styles.image6}
+              source={require('../../assets/images/MainLogo.png')}
+              style={styles.starIcon}
             />
-            <Text style={styles.text4}>{'Algebra II'}</Text>
           </View>
         </View>
-        {courses &&
-          courses.map((course, index) => (
-            <CourseCard
-              key={index}
-              title={course.title}
-              author={course.creator.username}
-              subject={course.categories[0]} // Assuming you want to display the first tag
-              ageRange={courses.age} // Replace this with actual value if available
-            />
-          ))}
+        <View style={styles.coursesSection}>
+          <Text style={styles.coursesTitle}>Courses</Text>
+
+          {courses &&
+            courses.map((course, index) => (
+              <CourseCard
+                key={index}
+                title={course.title}
+                author={course.creator.username}
+                subject={course.categories[0]} // Assuming you want to display the first tag
+                ageRange={courses.age} // Replace this with actual value if available
+              />
+            ))}
+        </View>
         <View style={styles.row4}>
           {courses &&
             courses.map((course, index) => (

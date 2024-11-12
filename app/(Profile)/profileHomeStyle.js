@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F2F2F2',
   },
-  text2: {
+  userName: {
     color: '#181818',
-    fontSize: 20,
-    marginBottom: 5,
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   text3: {
     color: '#181818',
@@ -92,6 +92,65 @@ const styles = StyleSheet.create({
   },
   boxWithBackground: {
     backgroundColor: '#BCE0FD',
+  },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#e0e0e0',
+    padding: 8,
+    borderRadius: 20,
+  },
+  badgeText: {
+    marginRight: 8,
+  },
+  starIcon: {
+    width: 20,
+    height: 20,
+  },
+  coursesSection: {
+    padding: 16,
+  },
+  coursesTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+
+  courseCard: {
+    flexDirection: 'row',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    marginBottom: 10,
+    overflow: 'hidden',
+  },
+  courseImage: {
+    width: 100,
+    height: 100,
+  },
+  courseDetails: {
+    flex: 1,
+    padding: 10,
+  },
+  courseTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  courseAuthor: {
+    fontSize: 14,
+    color: '#666',
+  },
+  courseActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  courseButton: {
+    backgroundColor: '#007bff',
+    padding: 5,
+    borderRadius: 5,
+  },
+  courseButtonText: {
+    color: '#fff',
   },
 });
 export default styles
