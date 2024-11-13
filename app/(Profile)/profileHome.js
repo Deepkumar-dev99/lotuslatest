@@ -70,7 +70,7 @@ const ProfileHome = () => {
         <View style={styles.row2}>
           <View style={styles.column3}>
             <Text style={styles.userName}>
-              {authUser?.firstName} {authUser.lastName}
+              {authUser?.firstName} {authUser?.lastName}
             </Text>
             <Text style={styles.text3}>
               {authUser?.stateProvince},{authUser?.country}

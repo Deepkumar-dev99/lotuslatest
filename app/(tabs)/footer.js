@@ -1,9 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export const Footer = () => {
+   const navigation = useNavigation();
+
+   const navigateToScreen = (screenName) => {
+     navigation.navigate(screenName);
+   };
   return (
     <LinearGradient
       start={{ x: 1, y: 0 }} // Start from the right
@@ -11,26 +17,45 @@ export const Footer = () => {
       colors={['#CA6955', '#CF7067', '#D26187']}
       style={styles.footerContainer}
     >
-      <View style={styles.iconWrapper}>
+      <TouchableOpacity
+        style={styles.iconWrapper}
+        onPress={() => navigateToScreen('ProfileScreen')} // Change 'ProfileScreen' to your actual screen name
+      >
         <Icon name="person-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Profile</Text>
-      </View>
-      <View style={styles.iconWrapper}>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.iconWrapper}
+        onPress={() => navigateToScreen('profileCourse')} // Change 'CoursesScreen' to your actual screen name
+      >
         <Icon name="book-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Open Courses</Text>
-      </View>
-      <View style={styles.iconWrapper}>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.iconWrapper}
+        onPress={() => navigateToScreen('profileHome')} // Change 'AllCoursesScreen' to your actual screen name
+      >
         <Icon name="tablet-portrait-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Courses</Text>
-      </View>
-      <View style={styles.iconWrapper}>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.iconWrapper}
+        onPress={() => navigateToScreen('GamesScreen')} // Change 'GamesScreen' to your actual screen name
+      >
         <Icon name="game-controller-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Games</Text>
-      </View>
-      <View style={styles.iconWrapper}>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.iconWrapper}
+        onPress={() => navigateToScreen('SearchScreen')} // Change 'SearchScreen' to your actual screen name
+      >
         <Icon name="search-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Search</Text>
-      </View>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };

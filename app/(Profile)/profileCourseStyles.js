@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -88,11 +89,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   courseBox: {
-    height: 122,
-    backgroundColor: '#BCE0FD',
-    borderColor: '#5E27FD',
-    borderWidth: 1,
     marginBottom: 21,
+    width: '100%',
+    height: 150,
   },
   courseAuthor: {
     fontSize: 12,
@@ -104,20 +103,22 @@ const styles = StyleSheet.create({
     marginBottom: 11,
     color: '#707070',
   },
-  courseTags: {
+  tagContainer: {
     flexDirection: 'row',
+    paddingHorizontal: 5,
+    paddingVertical: 8,
   },
   tag: {
-    width: 56,
-    alignItems: 'center',
     backgroundColor: '#34CC99',
-    borderRadius: 20,
-    paddingVertical: 8,
-    marginRight: 16,
+    borderRadius: 3,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    marginLeft: 8,
   },
   tagText: {
-    fontSize: 10,
     color: '#FFFFFF',
+    fontSize: 12,
   },
 });
-export default styles
+
+export default styles;

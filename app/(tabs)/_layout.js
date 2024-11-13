@@ -102,6 +102,18 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="profileCourse" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'profileCourse',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   ); 
       

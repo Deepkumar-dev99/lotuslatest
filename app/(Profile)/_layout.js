@@ -24,7 +24,7 @@ const ProfileLayout = () => {
               }}
             />
             <Stack.Screen
-              name="ProfileCourse"
+              name="profileCourse"
               options={{
                 headerShown: false,
               }}
