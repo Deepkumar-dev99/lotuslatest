@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,19 +8,44 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; // Install LinearGradient: https://github.com/react-native-linear-gradient/react-native-linear-gradient
+import { useSelector } from 'react-redux'; // Added missing import
 import { Header } from '../(tabs)/header';
 import { Footer } from '../(tabs)/footer';
 import CourseCard from '../Course/CourseCard';
-import styles from './profileCourseStyles';
+import styles from './profileCourseStyles'; // Correctly importing styles
+import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
+import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser'
 
 const ProfileCourse = () => {
   const [activeTab, setActiveTab] = useState('inProgress');
+  const authUser = useSelector((state) => state.user); // Get the user from Redux store
+  console.log(authUser);
 
-  const courses = [
-    { title: 'Title of Course Name', category: 'Art History', progress: '45%' },
-    { title: 'Title of Course Name', category: 'Art History', progress: '45%' },
-    { title: 'Title of Course Name', category: 'Art History', progress: '45%' },
-  ];
+  const [courses, setCourses] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  useEffect(() => {
+    fetchEnrolledCourses();
+  }, []);
+
+  const fetchEnrolledCourses = async () => {
+    try {
+      const res = await getAllEnrollmentsUser(authUser._id);
+      console.log('Fetched Enrollments: ', res);
+
+      console.log(res);
+      const mappedCourses = res.data.map((enrollment) => ({
+        ...enrollment.course,
+        progress: enrollment.progress, // Add the progress from enrollment
+      }));
+
+      setCourses(mappedCourses);
+      setLoaded(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Failed to load courses');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,13 +80,15 @@ const ProfileCourse = () => {
           courses.map((course, index) => (
             <View key={index} style={styles.courseCard}>
               <Image
-                source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
+                source={require('../../assets/images/Maths.jpg')}
                 resizeMode="stretch"
                 style={styles.courseImage}
               />
               <View style={styles.courseDetails}>
                 <Text style={styles.courseTitle}>{course.title}</Text>
-                <Text style={styles.courseCategory}>{course.category}</Text>
+                <Text style={styles.courseCategory}>
+                  {course.categories[0]}
+                </Text>
                 <View style={styles.progressContainer}>
                   <LinearGradient
                     start={{ x: 0, y: 0 }}
@@ -79,18 +106,21 @@ const ProfileCourse = () => {
           <View>
             {courses.map((course, index) => (
               <View key={index} style={styles.bookmarkedCourse}>
-                <View style={styles.courseBox}></View>
+                <Image
+                  source={require('../../assets/images/Maths.jpg')}
+                  style={styles.courseBox}
+                />
                 <Text style={styles.courseTitle}>{course.title}</Text>
-                <Text style={styles.courseAuthor}>{'Author Name'}</Text>
+                <Text style={styles.courseAuthor}>{course.categories[0]}</Text>
                 <Text style={styles.courseDescription}>
-                  {'Description of the game written here'}
+                  {course.decription}
                 </Text>
-                <View style={styles.courseTags}>
+                <View style={styles.tagContainer}>
                   <View style={styles.tag}>
-                    <Text style={styles.tagText}>{'Age'}</Text>
+                    <Text style={styles.tagText}>{course.age}</Text>
                   </View>
                   <View style={styles.tag}>
-                    <Text style={styles.tagText}>{'Subject'}</Text>
+                    <Text style={styles.tagText}>{course.categories[0]}</Text>
                   </View>
                 </View>
               </View>
@@ -104,4 +134,3 @@ const ProfileCourse = () => {
 };
 
 export default ProfileCourse;
-

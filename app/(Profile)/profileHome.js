@@ -18,24 +18,23 @@ import styles from './profileHomeStyle';
 
 const ProfileHome = () => {
   const authUser = useSelector((state) => state.user);
-  console.log(authUser)
   const [courses, setCourses] = useState();
+  const [errorMessage, setErrorMessage] = useState(false);
+
   useEffect(() => {
-    getAllAcceptedCourses();
+    fetchEnrolledCourses();
   }, []);
-    const getAllAcceptedCourses = async () => {
-      try {
-        const res = await getCoursesByProp(
-          'accepted',
-          true,
-          authUser.institution.code
-        );
-        setCourses(res.res);
-        setLoaded(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchEnrolledCourses = async () => {
+    try {
+      const res = await getEnrolledCourses(authUser._id);
+      console.log('Fetched Enrollments: ', res);
+      setCourses(res.res);
+      setLoaded(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Failed to load courses');
+    }
+  };
   // const getAllAcceptedCourses = async () => {
   //   try {
   //     let res;
@@ -70,7 +69,7 @@ const ProfileHome = () => {
         <View style={styles.row2}>
           <View style={styles.column3}>
             <Text style={styles.userName}>
-              {authUser?.firstName} {authUser.lastName}
+              {authUser?.firstName} {authUser?.lastName}
             </Text>
             <Text style={styles.text3}>
               {authUser?.stateProvince},{authUser?.country}
