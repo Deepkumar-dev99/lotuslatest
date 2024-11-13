@@ -18,24 +18,23 @@ import styles from './profileHomeStyle';
 
 const ProfileHome = () => {
   const authUser = useSelector((state) => state.user);
-  console.log(authUser)
   const [courses, setCourses] = useState();
+  const [errorMessage, setErrorMessage] = useState(false);
+
   useEffect(() => {
-    getAllAcceptedCourses();
+    fetchEnrolledCourses();
   }, []);
-    const getAllAcceptedCourses = async () => {
-      try {
-        const res = await getCoursesByProp(
-          'accepted',
-          true,
-          authUser.institution.code
-        );
-        setCourses(res.res);
-        setLoaded(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchEnrolledCourses = async () => {
+    try {
+      const res = await getEnrolledCourses(authUser._id);
+      console.log('Fetched Enrollments: ', res);
+      setCourses(res.res);
+      setLoaded(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Failed to load courses');
+    }
+  };
   // const getAllAcceptedCourses = async () => {
   //   try {
   //     let res;
