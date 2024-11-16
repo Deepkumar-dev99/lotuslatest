@@ -1,9 +1,16 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 export const Header = () => {
+  const router = useRouter();
+
+  const navigateToScreen = (screenName) => {
+    router.push(screenName); // Pushes to the specified route
+  };
   return (
     <LinearGradient
       start={{ x: 1, y: 0 }} // Start from the right
@@ -21,12 +28,17 @@ export const Header = () => {
       </View>
 
       <View style={styles.iconContainer}>
-        <Icon
-          name="notifications-outline"
-          size={24}
-          color="white"
+        <TouchableOpacity
           style={styles.icon}
-        />
+          onPress={() => navigateToScreen('notification')}
+        >
+          <Icon
+            name="notifications-outline"
+            size={24}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
         <Icon name="menu" size={24} color="white" style={styles.icon} />
       </View>
     </LinearGradient>
