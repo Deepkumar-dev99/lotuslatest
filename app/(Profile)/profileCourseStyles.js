@@ -64,21 +64,32 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     color: '#000000',
   },
-  progressContainer: {
-    alignItems: 'flex-end', // Align progress bar to the right
-    marginTop: 'auto', // Push it to the bottom of the course details
-  },
   progressBar: {
-    width: 45,
-    height: 35, // Increased height for better visibility
-    justifyContent: 'center', // Center text vertically
-    alignItems: 'center',
-    borderRadius: 4,
+    backgroundColor: '#eee',
+    height: 5,
+    borderRadius: 5,
+    marginTop: 10,
   },
-  progressText: {
-    fontSize: 14,
-    color: '#FFFFFF',
+  progress: {
+    backgroundColor: '#34CC99',
+    height: '100%',
+    borderRadius: 5,
   },
+  // progressContainer: {
+  //   alignItems: 'flex-end', // Align progress bar to the right
+  //   marginTop: 'auto', // Push it to the bottom of the course details
+  // },
+  // progressBar: {
+  //   width: 45,
+  //   height: 35, // Increased height for better visibility
+  //   justifyContent: 'center', // Center text vertically
+  //   alignItems: 'center',
+  //   borderRadius: 4,
+  // },
+  // progressText: {
+  //   fontSize: 14,
+  //   color: '#FFFFFF',
+  // },
   bookmarkedCourse: {
     borderColor: '#E2DEDE',
     borderRadius: 8,

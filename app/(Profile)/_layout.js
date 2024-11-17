@@ -29,6 +29,12 @@ const ProfileLayout = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="gameList"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </GlobalProvider>
       </View>
