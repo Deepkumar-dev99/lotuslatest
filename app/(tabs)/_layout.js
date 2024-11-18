@@ -112,6 +112,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="gameList" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'gameList',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="notification" // Should correspond to the "userdetails" screen file
         options={{
           title: 'notification',

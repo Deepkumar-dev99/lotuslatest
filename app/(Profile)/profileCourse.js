@@ -89,15 +89,8 @@ const ProfileCourse = () => {
                 <Text style={styles.courseCategory}>
                   {course.categories[0]}
                 </Text>
-                <View style={styles.progressContainer}>
-                  <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 0, y: 1 }}
-                    colors={['#EB7B38', '#E26662', '#E15890']}
-                    style={styles.progressBar}
-                  >
-                    <Text style={styles.progressText}>{course.progress}</Text>
-                  </LinearGradient>
+                <View style={styles.progressBar}>
+                  <View style={[styles.progress, { width: course.progress+'%'}]} />
                 </View>
               </View>
             </View>

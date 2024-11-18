@@ -2,15 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
- 
+
 export const Footer = () => {
   const router = useRouter();
 
-  const navigateToScreen = (screenName) => {
-    router.push(screenName); // Pushes to the specified route
-  };
+   const navigateToScreen = (screenName) => {
+     navigation.navigate(screenName);
+   };
   return (
     <LinearGradient
       start={{ x: 1, y: 0 }} // Start from the right
@@ -28,7 +27,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('profileCourse')} // Change 'CoursesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/profileCourse')} // Change 'CoursesScreen' to your actual screen name
       >
         <Icon name="book-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Open Courses</Text>
@@ -36,7 +35,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('profileHome')} // Change 'AllCoursesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/profileHome')} // Change 'AllCoursesScreen' to your actual screen name
       >
         <Icon name="tablet-portrait-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Courses</Text>
@@ -44,7 +43,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('GamesScreen')} // Change 'GamesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/gameList')} // Change 'GamesScreen' to your actual screen name
       >
         <Icon name="game-controller-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Games</Text>
