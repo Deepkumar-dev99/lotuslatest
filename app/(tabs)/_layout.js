@@ -114,6 +114,67 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="profileCourse" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'profileCourse',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="popularCourse" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'popularCourse',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="allCourses" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'allCourses',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="lessonContent" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'lessonContent',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="courseGrade" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'courseGrade',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      
     </Tabs>
   ); 
       

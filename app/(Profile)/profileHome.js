@@ -5,22 +5,27 @@ import {
   ScrollView,
   Image,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import { Header } from '../(tabs)/header';
 import { Footer } from '../(tabs)/footer';
 import CourseCard from '../Course/CourseCard'; // Import the new CourseCard component
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp'
 import getEnrolledCourses from '../../BackendProxy/courseProxy/getEnrolledCourses'
 import styles from './profileHomeStyle';
 
 
 const ProfileHome = () => {
-  const authUser = useSelector((state) => state.user);
-  const [courses, setCourses] = useState();
-  const [errorMessage, setErrorMessage] = useState(false);
-
+  const router = useRouter(); // useRouter for navigation in Expo Router
+  const [courses, setCourses] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loaded, setLoaded] = useState(false);
+  const authUser = useSelector((state) => state.user); // Get the user from Redux store
+  console.log(authUser);
   useEffect(() => {
     fetchEnrolledCourses();
   }, []);
@@ -35,33 +40,9 @@ const ProfileHome = () => {
       setErrorMessage('Failed to load courses');
     }
   };
-  // const getAllAcceptedCourses = async () => {
-  //   try {
-  //     let res;
-  //     if (
-  //       authUser.accountType === 'instructor' ||
-  //       authUser.accountType === 'admin'
-  //     ) {
-  //       console.log('this is instructor or admin');
-  //       res = await getCoursesByProp(
-  //         'creator.email',
-  //         authUser.email,
-  //         authUser.institution.code
-  //       );
-  //       console.log(res);
-  //     } else {
-  //       // res = await getCoursesByProp('null', null, authUser.institution.code);
-  //       console.log(authUser._id);
-        
-  //       res = await getEnrolledCourses("authUser._id");
-  //     }
-  //     setCourses(res.res);
-
-  //     //setLoadedCourses(true);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const navigateToScreen = (screenName) => {
+    router.push(screenName); // Use router.push to navigate in Expo Router
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -110,10 +91,17 @@ const ProfileHome = () => {
           {courses &&
             courses.map((course, index) => (
               <View style={[styles.commonColumn]}>
-                <Image
-                  source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
-                  style={styles.commonBox} // Define a new style for the image
-                />
+                <TouchableOpacity
+                  style={styles.iconWrapper}
+                  //onPress={() => navigateToScreen('/lessonContent:'+(course._id))}// Change 'ProfileScreen' to your actual screen name
+                  onPress={() => navigateToScreen('/lessonContent?id=${course._id}')}// Change 'ProfileScreen' to your actual screen name
+                  //onPress={() => navigateToScreen('/C3')}// Change 'ProfileScreen' to your actual screen name
+                >
+                  <Image
+                    source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
+                    style={styles.commonBox} // Define a new style for the image
+                  />
+                </TouchableOpacity>
                 <Text style={styles.text4}>{course.title}</Text>
               </View>
             ))}

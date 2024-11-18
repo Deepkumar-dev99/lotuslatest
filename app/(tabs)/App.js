@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native'; // Importing View and StyleShee
 import AuthLayout from '../(auth)/_layout';
 import { ApolloProvider } from '../../components/ApolloProvider'; // Assuming you have ApolloProvider set up here
 import { Provider } from 'react-redux';
-import ProfileLayout from '../(Profile)/_layout'
+import ProfileLayout from '../(Profile)/_layout';
+import CourseLayout from '../(Course)/_layout';
 import { store } from '../../redux/store';
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <View style={styles.container}>
           <AuthLayout />
           <ProfileLayout/>
+          <CourseLayout/>
         </View>
       </ApolloProvider>
     </Provider>
