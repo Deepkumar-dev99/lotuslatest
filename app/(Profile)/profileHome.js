@@ -77,7 +77,7 @@ const ProfileHome = () => {
           </View>
 
           <Image
-            source={require('../../assets/images/Mridul.png')}
+            source={require('../../assets/images/MainLogo.png')}
             resizeMode={'cover'}
             style={styles.profileImage}
           />

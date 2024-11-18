@@ -6,15 +6,12 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useGlobalContext } from '@/context/GlobalProvider';
 
-
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   const { loading, isLogged } = useGlobalContext();
 
   // if (!loading && !isLogged) return <Redirect href="/signin" />;
-
 
   return (
     <Tabs
@@ -126,9 +123,18 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="notification" // Should correspond to the "userdetails" screen file
+        options={{
+          title: 'notification',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'person' : 'person-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
-  ); 
-      
-    
-
+  );
 }

@@ -7,9 +7,9 @@ import { useRouter } from 'expo-router';
 export const Footer = () => {
   const router = useRouter();
 
-  const navigateToScreen = (screenName) => {
-    router.push(screenName); // Use `router.push` for navigation in expo-router
-  };
+   const navigateToScreen = (screenName) => {
+     navigation.navigate(screenName);
+   };
   return (
     <LinearGradient
       start={{ x: 1, y: 0 }} // Start from the right
@@ -19,7 +19,7 @@ export const Footer = () => {
     >
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/ProfileScreen')} // Change 'ProfileScreen' to your actual screen name
+        onPress={() => navigateToScreen('accountScreen')} // Change 'ProfileScreen' to your actual screen name
       >
         <Icon name="person-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Profile</Text>
