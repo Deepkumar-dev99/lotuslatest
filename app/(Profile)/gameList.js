@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import styles from './gameListStyles';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Header } from '../(tabs)/header';
 import { Footer } from '../(tabs)/footer';
 const GameList= () => {
@@ -59,13 +58,17 @@ const GameList= () => {
             <View style={styles.row4}>
               <Text style={styles.text7}>{'View by Name'}</Text>
               <Image
-                source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
+                source={require('../../assets/images/game.jpeg')}
                 resizeMode={'stretch'}
                 style={styles.image6}
               />
             </View>
             <View style={styles.column3}>
-              <View style={styles.box4}></View>
+              <Image
+                source={require('../../assets/images/game.jpeg')}
+                resizeMode={'stretch'}
+                style={styles.box4}
+              />
               <Text style={styles.text8}>{'Title of the Game'}</Text>
               <Text style={styles.text9}>{'Author Name'}</Text>
               <Text style={styles.text10}>
@@ -82,7 +85,11 @@ const GameList= () => {
             </View>
             <View style={styles.column4}>
               <View style={styles.column5}>
-                <View style={styles.box4}></View>
+                <Image
+                  source={require('../../assets/images/game.jpeg')}
+                  resizeMode={'stretch'}
+                  style={styles.box4}
+                />
                 <Text style={styles.text8}>{'Title of the Game'}</Text>
                 <Text style={styles.text9}>{'Author Name'}</Text>
                 <Text style={styles.text10}>
@@ -104,7 +111,7 @@ const GameList= () => {
             <View style={styles.recentRow}>
               <Text style={styles.recentText}>{'Recent'}</Text>
               <Image
-                source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
+                source={require('../../assets/images/game.jpeg')}
                 resizeMode={'stretch'}
                 style={styles.recentImage}
               />
@@ -112,7 +119,7 @@ const GameList= () => {
             <View style={styles.gameCard}>
               <View style={styles.cardRow}>
                 <Image
-                  source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
+                  source={require('../../assets/images/game.jpeg')}
                   resizeMode={'stretch'}
                   style={styles.cardImage}
                 />
@@ -144,7 +151,7 @@ const GameList= () => {
             <View style={styles.gameCard}>
               <View style={styles.cardRow}>
                 <Image
-                  source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
+                  source={require('../../assets/images/game.jpeg')}
                   resizeMode={'stretch'}
                   style={styles.cardImage}
                 />
