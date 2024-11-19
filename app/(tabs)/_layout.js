@@ -6,15 +6,12 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useGlobalContext } from '@/context/GlobalProvider';
 
-
-
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   const { loading, isLogged } = useGlobalContext();
 
   // if (!loading && !isLogged) return <Redirect href="/signin" />;
-
 
   return (
     <Tabs
@@ -115,9 +112,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profileCourse" // Should correspond to the "userdetails" screen file
+        name="gameList" // Should correspond to the "userdetails" screen file
         options={{
-          title: 'profileCourse',
+          title: 'gameList',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? 'person' : 'person-outline'}
@@ -127,9 +124,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="popularCourse" // Should correspond to the "userdetails" screen file
+        name="notification" // Should correspond to the "userdetails" screen file
         options={{
-          title: 'popularCourse',
+          title: 'notification',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? 'person' : 'person-outline'}
@@ -138,46 +135,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="allCourses" // Should correspond to the "userdetails" screen file
-        options={{
-          title: 'allCourses',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'person' : 'person-outline'}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="lessonContent" // Should correspond to the "userdetails" screen file
-        options={{
-          title: 'lessonContent',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'person' : 'person-outline'}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="courseGrade" // Should correspond to the "userdetails" screen file
-        options={{
-          title: 'courseGrade',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'person' : 'person-outline'}
-              color={color}
-            />
-          ),
-        }}
-      />
-      
     </Tabs>
-  ); 
-      
-    
-
+  );
 }

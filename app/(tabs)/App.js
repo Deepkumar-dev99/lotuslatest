@@ -5,6 +5,7 @@ import { ApolloProvider } from '../../components/ApolloProvider'; // Assuming yo
 import { Provider } from 'react-redux';
 import ProfileLayout from '../(Profile)/_layout';
 import CourseLayout from '../(Course)/_layout';
+import EditProfileLayout from '../(EditProfile)/_layout';
 import { store } from '../../redux/store';
 export default function App() {
   return (
@@ -14,6 +15,8 @@ export default function App() {
           <AuthLayout />
           <ProfileLayout/>
           <CourseLayout/>
+          <ProfileLayout />
+          <EditProfileLayout />
         </View>
       </ApolloProvider>
     </Provider>

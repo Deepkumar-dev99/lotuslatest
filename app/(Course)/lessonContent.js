@@ -16,18 +16,19 @@ import { faBold } from '@fortawesome/free-solid-svg-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'expo-router';
+import { useNavigation, useRouter, useLocalSearchParams } from 'expo-router'
 import CourseCard from '../Course/CourseCard';
 import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
 import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser';
-import getCourseData from '../../BackendProxy/courseProxy/getAllEnrollmentsUser';
+import getCourseData from '../../BackendProxy/courseProxy/getCourseData';
 import styles from './lessonContentStyle';
 
 const C3 = () => {
-  const params = useSearchParams(); // Access query parameters
-  const id = params.id;
+  const navigation = useNavigation();
+  const router = useRouter();
+  // const params = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   console.log(id);
-  
   const authUser = useSelector((state) => state.user); // Get the user from Redux store
   console.log(authUser);
 
@@ -42,14 +43,7 @@ const C3 = () => {
     try {
       const res = await getCourseData(id);
       console.log('Fetched Enrollments: ', res);
-
-      console.log(res);
-      const mappedCourses = res.data.map((enrollment) => ({
-        ...enrollment.course,
-        progress: enrollment.progress, // Add the progress from enrollment
-      }));
-
-      setCourses(mappedCourses);
+      setCourses(res.data);
       setLoaded(true);
     } catch (error) {
       console.error(error);
@@ -59,8 +53,7 @@ const C3 = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      {courses &&
-        courses.map((course, index) => (
+     
           <ScrollView style={styles.scrollView}>
             <View style={styles.header}>
               <Image
@@ -133,7 +126,6 @@ const C3 = () => {
               </View>
             </View>
           </ScrollView>
-      ))}
       <Footer />
     </SafeAreaView>
   );

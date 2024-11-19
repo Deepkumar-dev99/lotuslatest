@@ -16,12 +16,15 @@ import { faBold } from '@fortawesome/free-solid-svg-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import { useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
 import styles from './allCoursesStyle';
 import CourseCard from '../Course/CourseCard';
 import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
 import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser';
   
 const allCourses = () => {
+  const router = useRouter(); // useRouter for navigation in Expo Router
+
   const authUser = useSelector((state) => state.user); // Get the user from Redux store
   console.log(authUser);
 
@@ -49,6 +52,9 @@ const allCourses = () => {
       console.error(error);
       setErrorMessage('Failed to load courses');
     }
+    const navigateToScreen = (screenName) => {
+      router.push(screenName); // Use router.push to navigate in Expo Router
+    };
   };
   return (
     <SafeAreaView style={styles.container}>

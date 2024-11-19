@@ -22,6 +22,7 @@ const RootLayout = () => {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(Profile)" options={{ headerShown: false }} />
             <Stack.Screen name="(Course)" options={{ headerShown: false }} />
+            <Stack.Screen name="(EditProfile)" options={{ headerShown: false }} />
             {/* <Stack.Screen name="course" component={course} /> */}
             {/* <Stack.Screen name="search/[query]" options={{ headerShown: false }} /> */}
           </Stack>

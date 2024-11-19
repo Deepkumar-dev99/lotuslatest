@@ -43,6 +43,9 @@ const ProfileHome = () => {
   const navigateToScreen = (screenName) => {
     router.push(screenName); // Use router.push to navigate in Expo Router
   };
+  const navigateToScreenwithParams = (screenName,courseId) => {
+    router.push(screenName+`${courseId}`); // Use router.push to navigate in Expo Router
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -58,7 +61,7 @@ const ProfileHome = () => {
           </View>
 
           <Image
-            source={require('../../assets/images/Mridul.png')}
+            source={require('../../assets/images/MainLogo.png')}
             resizeMode={'cover'}
             style={styles.profileImage}
           />
@@ -93,9 +96,10 @@ const ProfileHome = () => {
               <View style={[styles.commonColumn]}>
                 <TouchableOpacity
                   style={styles.iconWrapper}
-                  //onPress={() => navigateToScreen('/lessonContent:'+(course._id))}// Change 'ProfileScreen' to your actual screen name
-                  onPress={() => navigateToScreen('/lessonContent?id=${course._id}')}// Change 'ProfileScreen' to your actual screen name
-                  //onPress={() => navigateToScreen('/C3')}// Change 'ProfileScreen' to your actual screen name
+                  onPress={() => navigateToScreenwithParams('/lessonContent?id=',course._id)}// Change 'ProfileScreen' to your actual screen name
+                  //onPress={() => navigateToScreen('/lessonContent',{id:'670c746f8ecae54e7f63dd5d'})}// Change 'ProfileScreen' to your actual screen name
+                  //onPress={() => navigateToScreen(`/lessonContent?id=${course._id}`)}
+                  //onPress={() => navigateToScreen('/lessonContent')}// Change 'ProfileScreen' to your actual screen name
                 >
                   <Image
                     source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object

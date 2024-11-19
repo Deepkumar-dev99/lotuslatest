@@ -6,7 +6,6 @@ import { useRouter } from 'expo-router';
 
 export const Footer = () => {
   const router = useRouter();
-
   const navigateToScreen = (screenName) => {
     router.navigate(screenName); // Use router.push to navigate in Expo Router
   };
@@ -19,7 +18,7 @@ export const Footer = () => {
     >
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/popularCourses')}// Change 'ProfileScreen' to your actual screen name
+        onPress={() => navigateToScreen('/accountScreen')} // Change 'ProfileScreen' to your actual screen name
       >
         <Icon name="person-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Profile</Text>
@@ -27,7 +26,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/profileHome')} // Change 'CoursesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/profileCourse')} // Change 'CoursesScreen' to your actual screen name
       >
         <Icon name="book-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Open Courses</Text>
@@ -35,7 +34,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/profileHome')} // Change 'AllCoursesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/allCourses')} // Change 'AllCoursesScreen' to your actual screen name
       >
         <Icon name="tablet-portrait-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Courses</Text>
@@ -43,7 +42,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/GamesScreen')} // Change 'GamesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/gameList')} // Change 'GamesScreen' to your actual screen name
       >
         <Icon name="game-controller-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Games</Text>
@@ -51,7 +50,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/SearchScreen')} // Change 'SearchScreen' to your actual screen name
+        onPress={() => navigateToScreen('SearchScreen')} // Change 'SearchScreen' to your actual screen name
       >
         <Icon name="search-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Search</Text>

@@ -38,3 +38,4 @@ const fetchAPI = async (endpoint, method = 'GET', body = null) => {
 export const register = (data) => fetchAPI('/register', 'POST', data);
 export const login = (data) => fetchAPI('/login', 'POST', data);
 export const getProfile = () => fetchAPI('/profile');
+
