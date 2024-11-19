@@ -35,6 +35,12 @@ const ProfileLayout = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="profileLibrary"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </GlobalProvider>
       </View>

@@ -21,23 +21,25 @@ const GameList= () => {
         <View style={styles.row2}>
           <TouchableOpacity onPress={() => setActiveTab('Saved')}>
             <Text
-              style={[styles.text3, activeTab === 'Saved' && styles.activeTab]}
+              style={[styles.tabText, activeTab === 'Saved' && styles.activeTab]}
             >
               {'Saved'}
             </Text>
+            {/* {activeTab === 'Saved' && <View style={styles.box2} />} */}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setActiveTab('History')}>
             <Text
               style={[
-                styles.text4,
+                styles.tabText,
                 activeTab === 'History' && styles.activeTab,
               ]}
             >
               {'History'}
             </Text>
+            {/* {activeTab === 'History' && <View style={styles.box2} />} */}
           </TouchableOpacity>
         </View>
-        <View style={styles.box2}></View>
+        {/* <View style={styles.box2}></View> */}
         <View style={styles.box3}></View>
         {activeTab === 'Saved' ? (
           <View>

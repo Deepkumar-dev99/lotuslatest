@@ -12,13 +12,16 @@ const styles = StyleSheet.create({
     width: 51,
     height: 2,
     backgroundColor: '#DA69AF',
-    marginHorizontal: 16,
+    position: 'absolute', // Makes the box overlap
+    bottom: -1, // Adjust as needed to overlap the box3
+    left: 16,
   },
   box3: {
     height: 1,
     backgroundColor: '#E2DEDE',
     marginBottom: 24,
     marginHorizontal: 16,
+    position: 'relative', // Keeps box3 as a reference point
   },
   box4: {
     height: 122,
@@ -339,6 +342,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 4,
   },
-  tagText: { color: '#FFFFFF', fontSize: 10 },
+  tabText: {
+    fontSize: 16,
+    marginRight: 34,
+    color: '#707070',
+  },
+  activeTab: {
+    color: '#DA69AF',
+  },
 });
 export default styles;
