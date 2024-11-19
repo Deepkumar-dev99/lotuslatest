@@ -34,7 +34,7 @@ export const Footer = () => {
 
       <TouchableOpacity
         style={styles.iconWrapper}
-        onPress={() => navigateToScreen('/allCourses')} // Change 'AllCoursesScreen' to your actual screen name
+        onPress={() => navigateToScreen('/popularCourses')} // Change 'AllCoursesScreen' to your actual screen name
       >
         <Icon name="tablet-portrait-outline" size={24} color="white" />
         <Text style={styles.iconLabel}>Courses</Text>

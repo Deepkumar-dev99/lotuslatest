@@ -16,12 +16,14 @@ import { faBold } from '@fortawesome/free-solid-svg-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import { useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
 import styles from './popularCourseStyle';
 import CourseCard from '../Course/CourseCard';
 import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
 import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser';
 
 const popularCourses = () => {
+  const router = useRouter();
   const authUser = useSelector((state) => state.user); // Get the user from Redux store
   console.log(authUser);
 
@@ -31,7 +33,9 @@ const popularCourses = () => {
   useEffect(() => {
     fetchEnrolledCourses();
   }, []);
-
+  const navigateToScreenwithParams = (screenName,courseId) => {
+    router.push(screenName+`${courseId}`); // Use router.push to navigate in Expo Router
+  };
   const fetchEnrolledCourses = async () => {
     try {
       const res = await getAllEnrollmentsUser(authUser._id);
@@ -70,10 +74,15 @@ const popularCourses = () => {
               {courses &&
                 courses.map((course, index) => (
                   <View style={[styles.paletteBox]}>
-                    <Image
-                      source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
-                      style={styles.coueseImage} // Define a new style for the image
-                    />
+                    <TouchableOpacity
+                      style={styles.iconWrapper}
+                      onPress={() => navigateToScreenwithParams('/lessonContent?id=',course._id)}// Change 'ProfileScreen' to your actual screen name
+                    >
+                      <Image
+                        source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
+                        style={styles.coueseImage} // Define a new style for the image
+                      />
+                    </TouchableOpacity>
                     <Text style={styles.paletteText}>{course.title}</Text>
                   </View>
                 ))}
@@ -84,10 +93,15 @@ const popularCourses = () => {
               {courses &&
                 courses.map((course, index) => (
                   <View style={[styles.paletteBox]}>
-                    <Image
-                      source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
-                      style={styles.coueseImage} // Define a new style for the image
-                    />
+                    <TouchableOpacity
+                      style={styles.iconWrapper}
+                      onPress={() => navigateToScreenwithParams('/lessonContent?id=',course._id)}// Change 'ProfileScreen' to your actual screen name
+                    >
+                      <Image
+                        source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
+                        style={styles.coueseImage} // Define a new style for the image
+                      />
+                    </TouchableOpacity>
                     <Text style={styles.paletteText}>{course.title}</Text>
                   </View>
                 ))}
@@ -95,17 +109,20 @@ const popularCourses = () => {
             </ScrollView>
           </LinearGradient>
         </View>
-        <View>
-          {courses.map((course, index) => (
-            <CourseCard
-              key={index}
-              title={course.title}
-              author={course.creator.username}
-              subject={course.categories[0]} // Assuming you want to display the first tag
-              ageRange={course.age} // Replace this with actual value if available
-            />
-          ))}
-        </View>
+        <ScrollView showsVerticalScrollIndicator={true} style={styles.scrollView}>
+          <View>
+            {courses.map((course, index) => (
+              <CourseCard
+                key={index}
+                title={course.title}
+                author={course.creator.username}
+                subject={course.categories[0]} // Assuming you want to display the first tag
+                ageRange={course.age} // Replace this with actual value if available
+                id={course._id}
+              />
+            ))}
+          </View>
+        </ScrollView>
       </ScrollView>
       <Footer />
     </SafeAreaView>

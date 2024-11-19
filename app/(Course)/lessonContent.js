@@ -66,25 +66,26 @@ const C3 = () => {
                 style={styles.profileImage}
               />
               <View style={styles.courseDetails}>
-                <Text style={styles.courseTitle}>{course.title}</Text>
-                <Text style={styles.courseDescription}>{course.description}</Text>
-                <Text style={styles.courseDescription}>{course.lessons.title}</Text>
+                <Text style={styles.courseTitle}>{courses.title}</Text>
+                <Text style={styles.courseDescription}>{courses.description}</Text>
               </View>
             </View>
             {/* Course Description */}
             <View style={styles.descriptionContainer}>
               <Text style={styles.courseLongDescription}>
-                {course.courseLongDescription}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
               </Text>
             </View>
             {/* Course Modules */}
             {courses.lessons && courses.lessons.length > 0 ? (
               courses.lessons.map((lession, lessonindex) => (
               <TouchableOpacity style={styles.moduleContainer}>
-                <View key={lessonIndex} style={styles.module}>
+                <View key={lessonindex} style={styles.module}>
                   <Image source={require('../../assets/images/course1.png')} style={styles.courseImage} />
                   <View style={styles.column}>
-                    <Link href="/C4" style={styles.box3}>
+                    <Link href="/courseGrade" style={styles.box3}>
                       <Text style={styles.moduleTitle}>{lession.title}</Text>
                     </Link>
                     <Text style={styles.moduleTime}>1 Hour, 10 min</Text>
