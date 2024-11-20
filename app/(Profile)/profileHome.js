@@ -92,27 +92,38 @@ const ProfileHome = () => {
           )}
         </View>
         <View style={styles.row4}>
-          {courses &&
-            courses.map((course, index) => (
-              <View style={[styles.commonColumn]}>
-                <TouchableOpacity
-                  style={styles.iconWrapper}
-                  onPress={() => navigateToScreenwithParams('/lessonContent?id=',course._id)}// Change 'ProfileScreen' to your actual screen name
-                  //onPress={() => navigateToScreen('/lessonContent',{id:'670c746f8ecae54e7f63dd5d'})}// Change 'ProfileScreen' to your actual screen name
-                  //onPress={() => navigateToScreen(`/lessonContent?id=${course._id}`)}
-                  //onPress={() => navigateToScreen('/lessonContent')}// Change 'ProfileScreen' to your actual screen name
-                >
-                  <Image
-                    source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
-                    style={styles.commonBox} // Define a new style for the image
-                  />
-                </TouchableOpacity>
-                <Text style={styles.text4}>{course.title}</Text>
-              </View>
-            ))}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollContainer}
+          >
+            {courses &&
+              courses.map((course, index) => (
+                <View style={[styles.commonColumn]}>
+                  <TouchableOpacity
+                    style={styles.iconWrapper}
+                    onPress={() =>
+                      navigateToScreenwithParams(
+                        '/lessonContent?id=',
+                        course._id
+                      )
+                    } // Change 'ProfileScreen' to your actual screen name
+                    //onPress={() => navigateToScreen('/lessonContent',{id:'670c746f8ecae54e7f63dd5d'})}// Change 'ProfileScreen' to your actual screen name
+                    //onPress={() => navigateToScreen(`/lessonContent?id=${course._id}`)}
+                    //onPress={() => navigateToScreen('/lessonContent')}// Change 'ProfileScreen' to your actual screen name
+                  >
+                    <Image
+                      source={require('../../assets/images/Maths.jpg')} // Assuming 'imageUrl' is a property in your course object
+                      style={styles.commonBox} // Define a new style for the image
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.text4}>{course.title}</Text>
+                </View>
+              ))}
+          </ScrollView>
         </View>
+        <Footer />
       </ScrollView>
-      <Footer />
     </SafeAreaView>
   );
 };
