@@ -7,10 +7,10 @@ import { Stack } from 'expo-router'; // Ensure this is correctly imported
 import { Provider } from 'react-redux';
 import { store } from '../../redux/store'; // Import your Redux store
 
-const ProfileLayout = () => {
+const CourseLayout = () => {
   const { loading, isLogged } = useGlobalContext();
 
-  if (!loading && isLogged) return <Redirect href="/profileHome" />;
+  if (!loading && isLogged) return <Redirect href="/popularCourse" />;
 
   return (
     <Provider store={store}>
@@ -18,25 +18,25 @@ const ProfileLayout = () => {
         <GlobalProvider>
           <Stack>
             <Stack.Screen
-              name="profileHome"
+              name="popularCourse"
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name="profileCourse"
+              name="allCourses"
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name="gameList"
+              name="lessonContent"
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name="profileLibrary"
+              name="courseGrade"
               options={{
                 headerShown: false,
               }}
@@ -48,4 +48,4 @@ const ProfileLayout = () => {
   );
 };
 
-export default ProfileLayout;
+export default CourseLayout;
