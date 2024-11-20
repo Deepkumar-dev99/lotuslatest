@@ -547,7 +547,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     width: '90%',
     alignItems: "center",
-    marginVertical: 20,
+    marginTop: '20%',
   },
   mainLogo: {
     width: "80%",

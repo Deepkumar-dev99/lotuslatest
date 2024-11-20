@@ -57,7 +57,7 @@ const SignUpScreen = () => {
           <View style={styles.signUpContainer}>
             <Image
               source={require('../../assets/images/MainLogo.png')}
-              resizeMode="stretch"
+              resizeMode="contain"
               style={styles.mainLogo}
             />
 
@@ -140,15 +140,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingVertical: 50,
     width: '90%',
     alignItems: 'center',
+    marginTop: '20%',
   },
   mainLogo: {
     width: '80%',
     height: 120,
     marginBottom: 40,
-    objectFit: 'contain',
   },
   labelText: {
     color: '#757575',
