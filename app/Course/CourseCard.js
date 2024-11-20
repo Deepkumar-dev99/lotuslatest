@@ -1,15 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground,
+  TouchableOpacity, } from 'react-native';
+import { useRouter } from 'expo-router';
 
-const CourseCard = ({ title, author, subject, ageRange, imageUri }) => {
+const CourseCard = ({ title, author, subject, ageRange, id , imageUri }) => {
+  const router = useRouter(); 
+  const navigateToScreenwithParams = (screenName,courseId) => {
+    router.push(screenName+`${courseId}`); // Use router.push to navigate in Expo Router
+  };
   return (
     <View style={styles.cardContainer}>
       {/* Background Image */}
-      <ImageBackground
-        source={require('../../assets/images/Maths.jpg')}
-        style={styles.imageBackground}
-        imageStyle={styles.imageStyle}
-      ></ImageBackground>
+      <TouchableOpacity style={styles.iconWrapper}
+        onPress={() => navigateToScreenwithParams('/lessonContent?id=',id)}
+        >
+        <ImageBackground
+          source={require('../../assets/images/Maths.jpg')}
+          style={styles.imageBackground}
+          imageStyle={styles.imageStyle}
+        ></ImageBackground>
+      </TouchableOpacity>
+      {/* <ImageBackground
+          source={require('../../assets/images/Maths.jpg')}
+          style={styles.imageBackground}
+          imageStyle={styles.imageStyle}
+        ></ImageBackground> */}
       <View style={styles.container}>
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{title}</Text>
