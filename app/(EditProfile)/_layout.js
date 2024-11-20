@@ -29,6 +29,18 @@ const EditProfileLayout = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="profilehelp"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="profilesecurity"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </GlobalProvider>
       </View>
