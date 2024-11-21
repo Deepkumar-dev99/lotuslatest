@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   ScrollView,
@@ -17,48 +17,68 @@ import { useNavigation } from '@react-navigation/native';
 import { saveUserCookies } from '../../cookie-handler/cookieHandler';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slice/user/userSlice';
-
-const UserDetails = () => {
+import enrollStudentByInstitution from '../../BackendProxy/courseProxy/enrollStudentByInstituition';
+import axios from 'axios';
+const UserDetails = ({ type = 'student' }) => {
   const { email: globalEmail, pass: globalPass } = useGlobalContext();
+  const [invitationCode, setInvitationCode] = useState('');
+  const [haveInvitationCode, setHaveInvitationCode] = useState(true);
+  const [email, setEmail] = useState(globalEmail);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [accountType, setAccountType] = useState(type);
+  const [password, setPassword] = useState(globalPass);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [samePassword, setSamePassword] = useState(false);
+  const [missingData, setMissingData] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [usernameTaken, setUsernameTaken] = useState(false);
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
+    useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    email: globalEmail,
-    password: globalPass,
-    username: '',
-    accountType: '',
-    googleAuth: false,
-    stateProvince: '',
-    school: '',
-  });
+  // const [userData, setUserData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: globalEmail,
+  //   password: globalPass,
+  //   username: '',
+  //   accountType: '',
+  //   googleAuth: false,
+  //   stateProvince: '',
+  //   code: '',
+  //   linkedCode: '',
+  //   school: '',
+  // });
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (name, value) => {
-    setUserData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: '' })); // Clear error when user modifies the input
-  };
+  // const handleChange = (name, value) => {
+  //   setUserData((prev) => ({ ...prev, [name]: value }));
+  //   setErrors((prev) => ({ ...prev, [name]: '' })); // Clear error when user modifies the input
+  // };
 
   const validateInputs = () => {
     const newErrors = {};
     const phoneRegex = /^[0-9]{10}$/;
 
     // Added validations for missing fields
-    if (!userData.firstName) {
+    if (!firstName) {
       newErrors.firstName = 'First name is required.';
     }
-    if (!userData.lastName) {
+    if (!lastName) {
       newErrors.lastName = 'Last name is required.';
     }
-    if (!userData.username) {
+    if (!username) {
       newErrors.username = 'Username is required.';
     }
-    if (!userData.stateProvince) {
-      newErrors.stateProvince = 'State/Province is required.';
-    }
-    if (!userData.accountType) {
+    // if (!stateProvince) {
+    //   newErrors.stateProvince = 'State/Province is required.';
+    // }
+    if (!accountType) {
       newErrors.accountType = 'Account type is required.';
     }
 
@@ -72,38 +92,40 @@ const UserDetails = () => {
     }
 
     try {
-      const headersList = {
-        Accept: '*/*',
-        'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-        'Content-Type': 'application/json',
-      };
+      
+       const response = await axios.post(
+         ' http://localhost:5000/user/create-user',
+         {
+           firstName,
+           lastName,
+           email,
+           accountType,
+           code: invitationCode,
+           linkedCode: haveInvitationCode,
+           username,
+           password,
+         }
+       );
+       console.log(response.data);
+     if (response.data.success) {
+       const savedUser = await saveUserCookies({ ...response.data.user });
+       await dispatch(setUser(savedUser));
 
-      const requestBody = {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        email: globalEmail,
-        password: globalPass,
-        username: userData.username,
-        accountType: userData.accountType,
-        googleAuth: false,
-        stateProvince: userData.stateProvince,
-        school: userData.school,
-      };
+       //  if(response.data.user.accountType === 'student' ||  response.data.user.accountType === 'teacher')
+       if (response.data.user.accountType === 'student') {
+         console.log(response.data.user._id);
+         const enrollResponse = await enrollStudentByInstitution(
+           response.data.user._id
+         );
 
-      const bodyContent = JSON.stringify(requestBody);
-
-      const API_URL = 'https://f5cc-142-126-97-217.ngrok-free.app/user/create-user';
-
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        body: bodyContent,
-        headers: headersList,
-      });
-
-      const data = await response.json();
-      saveUserCookies(userData);
+         if (enrollResponse.success) {
+           console.log('User successfully enrolled in institution courses');
+         } else {
+           console.error('Enrollment failed:', enrollResponse.data.message);
+         }
+       }
+     } 
       if (response.ok) {
-        await dispatch(setUser(userData));
         Alert.alert('Success', 'Account created successfully!');
         console.log('Response Data:', data);
         navigation.navigate('verifyemail'); // Navigate to Verify Email page
@@ -115,6 +137,11 @@ const UserDetails = () => {
       console.log('Error:', error);
     }
   };
+  useEffect(() => {
+    if (!haveInvitationCode) {
+      setInvitationCode('');
+    }
+  }, [haveInvitationCode]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -133,8 +160,8 @@ const UserDetails = () => {
           style={styles.inputBox}
           placeholder="Enter your first name"
           placeholderTextColor="#757575"
-          value={userData.firstName}
-          onChangeText={(value) => handleChange('firstName', value)}
+          value={firstName}
+          onChangeText={(value) => setFirstName(value)}
         />
         {errors.firstName && (
           <Text style={styles.errorText}>{errors.firstName}</Text>
@@ -145,8 +172,8 @@ const UserDetails = () => {
           style={styles.inputBox}
           placeholder="Enter your last name"
           placeholderTextColor="#757575"
-          value={userData.lastName}
-          onChangeText={(value) => handleChange('lastName', value)}
+          value={lastName}
+          onChangeText={(value) => setLastName(value)}
         />
         {errors.lastName && (
           <Text style={styles.errorText}>{errors.lastName}</Text>
@@ -157,30 +184,37 @@ const UserDetails = () => {
           style={styles.inputBox}
           placeholder="Enter your username"
           placeholderTextColor="#757575"
-          value={userData.username}
-          onChangeText={(value) => handleChange('username', value)}
+          value={username}
+          onChangeText={(value) => setUsername(value)}
         />
         {errors.username && (
           <Text style={styles.errorText}>{errors.username}</Text>
         )}
-
-        <Text style={styles.label}>State/Province*</Text>
+        <Text style={styles.label}>Institution Code*</Text>
+        <TextInput
+          style={styles.inputBox}
+          placeholder="Enter your Institution Code"
+          placeholderTextColor="#757575"
+          value={invitationCode}
+          onChangeText={(value) => setInvitationCode(value)}
+        />
+        {/* <Text style={styles.label}>State/Province*</Text>
         <TextInput
           style={styles.inputBox}
           placeholder="Enter your state/province"
           placeholderTextColor="#757575"
-          value={userData.stateProvince}
-          onChangeText={(value) => handleChange('stateProvince', value)}
+          value={stateProvince}
+          onChangeText={(value) => handleChange(value)}
         />
         {errors.stateProvince && (
           <Text style={styles.errorText}>{errors.stateProvince}</Text>
-        )}
+        )} */}
 
         <Text style={styles.label}>Account Type*</Text>
         <View style={styles.pickerContainer}>
           <Picker
-            selectedValue={userData.accountType}
-            onValueChange={(value) => handleChange('accountType', value)}
+            selectedValue={accountType}
+            onValueChange={(value) => setAccountType(value)}
             style={styles.PickerBoxInput}
           >
             <Picker.Item label="Choose account type" value="" color="#181818" />
@@ -193,14 +227,14 @@ const UserDetails = () => {
           <Text style={styles.errorText}>{errors.accountType}</Text>
         )}
 
-        <Text style={styles.label}>School (optional)</Text>
+        {/* <Text style={styles.label}>School (optional)</Text>
         <TextInput
           style={styles.inputBox}
           placeholder="Enter school name"
           placeholderTextColor="#757575"
-          value={userData.school}
+          value={school}
           onChangeText={(value) => handleChange('school', value)}
-        />
+        /> */}
 
         <LinearGradient
           start={{ x: 0, y: 0 }}
