@@ -117,7 +117,6 @@ const UserDetails = ({ type = 'student' }) => {
          const enrollResponse = await enrollStudentByInstitution(
            response.data.user._id
          );
-
          if (enrollResponse.success) {
            console.log('User successfully enrolled in institution courses');
          } else {
