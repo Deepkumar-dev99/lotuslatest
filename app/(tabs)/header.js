@@ -1,36 +1,57 @@
-import React from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 
 export const Header = () => {
+  const [menuVisible, setMenuVisible] = useState(false); // State for controlling the menu
   const router = useRouter();
 
   const navigateToScreen = (screenName) => {
-    router.push(screenName); // Pushes to the specified route
+    setMenuVisible(false); // Close the menu
+    router.push(screenName);
   };
+
+  const handleLogout = () => {
+    setMenuVisible(false); // Close the menu
+    // Add logout logic here, e.g., clear user data from Redux or AsyncStorage
+    console.log('User logged out');
+    router.replace('/login'); // Redirect to the login screen
+  };
+
   return (
     <LinearGradient
-      start={{ x: 1, y: 0 }} // Start from the right
-      end={{ x: 0, y: 0 }} // End at the left
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 0 }}
       colors={['#CA6955', '#CF7067', '#D26187']}
       style={styles.headerContainer}
     >
-      <View style={styles.logoContainer}>
+      {/* Logo */}
+      <TouchableOpacity
+        style={styles.logoContainer}
+        onPress={() => navigateToScreen('/home')}
+      >
         <Image
           source={require('../../assets/images/Mainwhitelogo.png')}
           resizeMode="stretch"
           style={styles.image}
         />
-        <Text style={styles.text}>{'Lotus Learning'}</Text>
-      </View>
+        <Text style={styles.text}>Lotus Learning</Text>
+      </TouchableOpacity>
 
+      {/* Icons */}
       <View style={styles.iconContainer}>
         <TouchableOpacity
           style={styles.icon}
-          onPress={() => navigateToScreen('notification')}
+          onPress={() => navigateToScreen('/notification')}
         >
           <Icon
             name="notifications-outline"
@@ -39,8 +60,46 @@ export const Header = () => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <Icon name="menu" size={24} color="white" style={styles.icon} />
+        <TouchableOpacity
+          onPress={() => setMenuVisible(true)} // Open the menu
+        >
+          <Icon name="menu" size={24} color="white" style={styles.icon} />
+        </TouchableOpacity>
       </View>
+
+      {/* Hamburger Menu */}
+      <Modal
+        visible={menuVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setMenuVisible(false)} // Close menu on back press
+      >
+        <View style={styles.menuOverlay}>
+          <View style={styles.menuContainer}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => navigateToScreen('/profile')}
+            >
+              <Text style={styles.menuText}>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => navigateToScreen('/settings')}
+            >
+              <Text style={styles.menuText}>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+              <Text style={[styles.menuText, styles.logoutText]}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuClose}
+              onPress={() => setMenuVisible(false)}
+            >
+              <Text style={styles.closeText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </LinearGradient>
   );
 };
@@ -49,29 +108,59 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Space between logo and icons
-    paddingVertical: 16, // Adjust padding for top and bottom
-    paddingHorizontal: 20, // Adjust padding for left and right
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
   },
   logoContainer: {
     flexDirection: 'row',
-    alignItems: 'center', // Vertically center logo and text
+    alignItems: 'center',
   },
   image: {
     width: 39,
     height: 27,
-    marginRight: 10, // Spacing between logo and text
+    marginRight: 10,
   },
   text: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: '500', // Slightly bolder text
+    fontWeight: '500',
   },
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   icon: {
-    marginLeft: 20, // Space between the two icons
+    marginLeft: 20,
+  },
+  menuOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  menuContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  menuItem: {
+    paddingVertical: 15,
+  },
+  menuText: {
+    fontSize: 18,
+    color: '#333',
+  },
+  logoutText: {
+    color: '#E75480',
+    fontWeight: 'bold',
+  },
+  menuClose: {
+    marginTop: 20,
+    alignSelf: 'center',
+  },
+  closeText: {
+    fontSize: 16,
+    color: '#888',
   },
 });
