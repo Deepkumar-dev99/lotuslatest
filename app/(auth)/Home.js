@@ -81,9 +81,12 @@ const CourseCard = ({ course }) => (
       style={styles.courseImage}
     />
     <View style={styles.courseInfo}>
-      <TouchableOpacity style={styles.continueButton}>
-        <Text style={styles.continueButtonText}>CONTINUE LESSON</Text>
-      </TouchableOpacity>
+    <TouchableOpacity style={styles.continueButton}>
+  <Text style={styles.continueButtonText}>
+    CONTINUE LESSON <Text style={styles.arrow}>→</Text>
+  </Text>
+</TouchableOpacity>
+
     </View>
   </TouchableOpacity>
 );
@@ -135,29 +138,31 @@ const Home = () => {
               </Text>
             </View>
             <View style={styles.courseSection}>
-              <Text style={styles.sectionTitle}>
-                Discover Our Course Offerings
-              </Text>
+  <Text style={styles.sectionTitle}>Discover Our Course Offerings</Text>
+  {filteredCourses.length > 0 ? (
+    <>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
+        {filteredCourses.map((course) => (
+          <View key={course._id + '-1'} style={styles.courseCardWrapper}>
+            <CourseCard course={course} />
+          </View>
+        ))}
+      </ScrollView>
 
-              {filteredCourses.length > 0 ? (
-                
-                  <View style={styles.coursesGrid}>
-                    <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  style={styles.scrollContainer}
-                >
-                    {filteredCourses.map((course) => (
-                      <View key={course._id} style={styles.courseCardWrapper}>
-                        <CourseCard course={course} />
-                      </View>
-                    ))}
-                    </ScrollView>
-                  </View>
-              ) : (
-                <Text style={styles.loadingText}>No courses found</Text>
-              )}
-            </View>
+      <Text style={styles.sectionTitle}>Our Popular Courses</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
+        {filteredCourses.map((course) => (
+          <View key={course._id + '-2'} style={styles.courseCardWrapper}>
+            <CourseCard course={course} />
+          </View>
+        ))}
+      </ScrollView>
+    </>
+  ) : (
+    <Text style={styles.loadingText}>No courses found</Text>
+  )}
+</View>
+
           </>
         )}
       </ScrollView>
@@ -236,6 +241,27 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 10,
   },
+  // courseCard: {
+  //   backgroundColor: '#fff',
+  //   borderColor: '#34CC99',
+  //   borderWidth: 1,
+  //   borderRadius: 12,
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 4,
+  //   elevation: 3,
+  // },
+  // courseImage: {
+  //   width: '100%',
+  //   height: 120,
+  //   borderTopLeftRadius: 12,
+  //   borderTopRightRadius: 12,
+  // },
+  // courseInfo: {
+  //   padding: 10,
+  // },
+
   courseCard: {
     backgroundColor: '#fff',
     borderColor: '#34CC99',
@@ -246,16 +272,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    width: width * 0.5, // Set width to 80% of screen width
+    height: 180, // Adjust height to make it rectangular
+    marginHorizontal: 10, // Add spacing between cards
+    overflow: 'hidden', // Ensure content stays within bounds
   },
+  
   courseImage: {
     width: '100%',
-    height: 120,
+    height: '60%', // Occupies 60% of the card's height
+    resizeMode: 'cover', // Ensures the image fills the space proportionally
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
+  
+
   courseInfo: {
     padding: 10,
+    // paddingBottom: 4, // Minimize padding at the bottom
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
+  
   courseTitle: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -266,17 +305,56 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 8,
   },
+
+  continueButton: {
+    alignSelf: 'flex-end', // Keeps button on the right
+    paddingVertical: 4, // Reduce top and bottom padding
+    // Minimize bottom padding specifically
+    paddingHorizontal: 8, // Optional: Maintain side padding
+    flexDirection: 'row',
+  },
   continueButtonText: {
     color: '#000000',
-    fontSize: 10,
+    fontSize: 12,
     textAlign:'right',
+    justifyContent: 'flex-end', // Aligns items vertically at the bottom
+    alignItems: 'flex-end', 
     fontWeight: 'bold',
   },
+  arrow: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    justifyContent: 'flex-end', // Aligns items vertically at the bottom
+    alignItems: 'flex-end', 
+  },
+  
   loadingText: {
     textAlign: 'center',
     padding: 20,
     color: '#666',
   },
-});
 
+
+secondCourseCard: {
+  // Adjustments for second card's container
+  borderWidth: 1,
+  borderColor: '#E75480',
+  paddingBottom: 16, // More space for the button
+},
+
+secondCourseInfo: {
+  // Align button to the bottom-right
+  flexDirection: 'row',
+  justifyContent: 'flex-end', // Move button to the extreme right
+  paddingBottom: 4, // Minimal padding
+},
+
+secondContinueButton: {
+  // Styling for the button in the second card
+  justifyContent: 'flex-end', // Push button content to the right
+  marginRight: 0, // Remove extra space on the right
+  paddingHorizontal: 8, // Minimal horizontal padding
+  paddingVertical: 4, // Minimal vertical padding
+},
+});
 export default Home;
