@@ -19,53 +19,24 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slice/user/userSlice';
 import enrollStudentByInstitution from '../../BackendProxy/courseProxy/enrollStudentByInstituition';
 import axios from 'axios';
+
 const UserDetails = ({ type = 'student' }) => {
   const { email: globalEmail, pass: globalPass } = useGlobalContext();
   const [invitationCode, setInvitationCode] = useState('');
   const [haveInvitationCode, setHaveInvitationCode] = useState(true);
   const [email, setEmail] = useState(globalEmail);
-  const [invalidEmail, setInvalidEmail] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [accountType, setAccountType] = useState(type);
   const [password, setPassword] = useState(globalPass);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [samePassword, setSamePassword] = useState(false);
-  const [missingData, setMissingData] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [usernameTaken, setUsernameTaken] = useState(false);
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
-    useState(false);
+  const [errors, setErrors] = useState({});
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // const [userData, setUserData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: globalEmail,
-  //   password: globalPass,
-  //   username: '',
-  //   accountType: '',
-  //   googleAuth: false,
-  //   stateProvince: '',
-  //   code: '',
-  //   linkedCode: '',
-  //   school: '',
-  // });
-
-  const [errors, setErrors] = useState({});
-
-  // const handleChange = (name, value) => {
-  //   setUserData((prev) => ({ ...prev, [name]: value }));
-  //   setErrors((prev) => ({ ...prev, [name]: '' })); // Clear error when user modifies the input
-  // };
 
   const validateInputs = () => {
     const newErrors = {};
-    const phoneRegex = /^[0-9]{10}$/;
 
-    // Added validations for missing fields
     if (!firstName) {
       newErrors.firstName = 'First name is required.';
     }
@@ -75,15 +46,12 @@ const UserDetails = ({ type = 'student' }) => {
     if (!username) {
       newErrors.username = 'Username is required.';
     }
-    // if (!stateProvince) {
-    //   newErrors.stateProvince = 'State/Province is required.';
-    // }
     if (!accountType) {
       newErrors.accountType = 'Account type is required.';
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async () => {
@@ -92,51 +60,45 @@ const UserDetails = ({ type = 'student' }) => {
     }
 
     try {
-      
-       const response = await axios.post(
-         ' http://localhost:5000/user/create-user',
-         {
-           firstName,
-           lastName,
-           email,
-           accountType,
-           code: invitationCode,
-           linkedCode: haveInvitationCode,
-           username,
-           password,
-         }
-       );
-       console.log(response.data);
-     if (response.data.success) {
-       const savedUser = await saveUserCookies({ ...response.data.user });
-       await dispatch(setUser(savedUser));
+      const response = await axios.post('http://localhost:5000/user/create-user', {
+        firstName,
+        lastName,
+        email,
+        accountType,
+        code: invitationCode,
+        linkedCode: haveInvitationCode,
+        username,
+        password,
+      });
 
-       //  if(response.data.user.accountType === 'student' ||  response.data.user.accountType === 'teacher')
-       if (response.data.user.accountType === 'student') {
-         console.log(response.data.user._id);
-         const enrollResponse = await enrollStudentByInstitution(
-           response.data.user._id
-         );
+      console.log('Response:', response.data);
 
-         if (enrollResponse.success) {
-           console.log('User successfully enrolled in institution courses');
-         } else {
-           console.error('Enrollment failed:', enrollResponse.data.message);
-         }
-       }
-     } 
-      if (response.ok) {
+      if (response.data.success) {
+        const savedUser = await saveUserCookies({ ...response.data.user });
+        await dispatch(setUser(savedUser));
+
+        if (response.data.user.accountType === 'student') {
+          console.log(response.data.user._id);
+          const enrollResponse = await enrollStudentByInstitution(response.data.user._id);
+
+          if (enrollResponse.success) {
+            console.log('User successfully enrolled in institution courses');
+          } else {
+            console.error('Enrollment failed:', enrollResponse.data.message);
+          }
+        }
+
         Alert.alert('Success', 'Account created successfully!');
-        console.log('Response Data:', data);
-        navigation.navigate('verifyemail'); // Navigate to Verify Email page
+        navigation.navigate('verifyemail');
       } else {
-        throw new Error(data.errors?.[0]?.message || 'Something went wrong');
+        throw new Error(response.data.errors?.[0]?.message || 'Something went wrong');
       }
     } catch (error) {
+      console.log('Error:', error.message);
       Alert.alert('Error', error.message);
-      console.log('Error:', error);
     }
   };
+
   useEffect(() => {
     if (!haveInvitationCode) {
       setInvitationCode('');
@@ -190,6 +152,7 @@ const UserDetails = ({ type = 'student' }) => {
         {errors.username && (
           <Text style={styles.errorText}>{errors.username}</Text>
         )}
+
         <Text style={styles.label}>Institution Code*</Text>
         <TextInput
           style={styles.inputBox}
@@ -198,17 +161,6 @@ const UserDetails = ({ type = 'student' }) => {
           value={invitationCode}
           onChangeText={(value) => setInvitationCode(value)}
         />
-        {/* <Text style={styles.label}>State/Province*</Text>
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Enter your state/province"
-          placeholderTextColor="#757575"
-          value={stateProvince}
-          onChangeText={(value) => handleChange(value)}
-        />
-        {errors.stateProvince && (
-          <Text style={styles.errorText}>{errors.stateProvince}</Text>
-        )} */}
 
         <Text style={styles.label}>Account Type*</Text>
         <View style={styles.pickerContainer}>
@@ -227,15 +179,6 @@ const UserDetails = ({ type = 'student' }) => {
           <Text style={styles.errorText}>{errors.accountType}</Text>
         )}
 
-        {/* <Text style={styles.label}>School (optional)</Text>
-        <TextInput
-          style={styles.inputBox}
-          placeholder="Enter school name"
-          placeholderTextColor="#757575"
-          value={school}
-          onChangeText={(value) => handleChange('school', value)}
-        /> */}
-
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
@@ -253,8 +196,6 @@ const UserDetails = ({ type = 'student' }) => {
     </SafeAreaView>
   );
 };
-
-// export default UserDetails;
 
 export default UserDetails;
 
@@ -295,7 +236,7 @@ const styles = StyleSheet.create({
     borderColor: '#34CC99',
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 5, // Changed to 5 for spacing with error message
+    marginBottom: 5,
     paddingHorizontal: 15,
     width: '90%',
     color: '#181818',
@@ -306,7 +247,7 @@ const styles = StyleSheet.create({
     borderColor: '#34CC99',
     borderRadius: 10,
     overflow: 'hidden',
-    marginBottom: 5, // Changed to 5 for spacing with error message
+    marginBottom: 5,
   },
   PickerBoxInput: {
     height: 50,

@@ -28,8 +28,15 @@ const AuthLayout = () => {
                 headerShown: false,
               }}
             />
+            
             <Stack.Screen
               name="Home"
+              options={{
+                headerShown: false,
+              }}
+            />
+              <Stack.Screen
+              name="verifyemail"
               options={{
                 headerShown: false,
               }}
