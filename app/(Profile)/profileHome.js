@@ -84,6 +84,7 @@ const ProfileHome = () => {
                 author={course.creator.username}
                 subject={course.categories[0]} // Assuming you want to display the first tag
                 ageRange={course.age} // Replace this with actual value if available
+                imageUri={course.imageUrl}
                 id={course._id}
               />
             ))

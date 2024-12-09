@@ -71,6 +71,13 @@ const popularCourses = () => {
                 style={styles.icon}
               />
               <TextInput style={styles.searchinput} />
+              <Ionicons
+                name="search"
+                size={25}
+                color="#68D391"
+                style={styles.icon}
+              />
+              <TextInput style={styles.searchinput} />
             </View>
             <ScrollView
               horizontal
@@ -111,6 +118,7 @@ const popularCourses = () => {
               showsHorizontalScrollIndicator={false}
               style={styles.scrollContainer}
             >
+    
               <View style={styles.coursePalette}>
                 {courses &&
                   courses.map((course, index) => (
@@ -154,6 +162,10 @@ const popularCourses = () => {
                 author={course.creator.username}
                 subject={course.categories[0]} // Assuming you want to display the first tag
                 ageRange={course.age} // Replace this with actual value if available
+                imageUrl={
+                  course.imageUrl ||
+                  'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png'
+                }
                 id={course._id}
                 imageUri={course.imageUrl}
               />
@@ -166,6 +178,7 @@ const popularCourses = () => {
   );
 };
 export default popularCourses;
+
 // import React, { useState, useEffect } from 'react';
 // import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
