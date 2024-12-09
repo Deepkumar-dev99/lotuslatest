@@ -23,7 +23,9 @@ const Carousel = () => {
 
   const carouselData = Array(4).fill({
     id: Math.random().toString(),
-    image: require('../../assets/images/Mridul.png'),
+    image: {
+      uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
+    },
   });
 
   const renderCarouselItem = ({ item }) => (
@@ -84,6 +86,7 @@ const CourseCard = ({ course }) => (
               uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
             }
       }
+      resizeMode='cover'
       style={styles.courseImage}
     />
     <View style={styles.courseInfo}>

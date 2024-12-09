@@ -78,15 +78,15 @@ export const Header = () => {
           <View style={styles.menuContainer}>
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => navigateToScreen('/profile')}
+              onPress={() => navigateToScreen('/accountScreen')}
             >
               <Text style={styles.menuText}>Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => navigateToScreen('/settings')}
+              onPress={() => navigateToScreen('/profileHome')}
             >
-              <Text style={styles.menuText}>Settings</Text>
+              <Text style={styles.menuText}>Profile Home</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
               <Text style={[styles.menuText, styles.logoutText]}>Logout</Text>
