@@ -87,7 +87,7 @@ const ProfileCourse = () => {
                 navigateToScreenwithParams('/lessonContent?id=', course._id)
               } // Change 'ProfileScreen' to your actual screen name
             >
-              <View key={index} style={styles.courseCard}>
+              <View key={course._id} style={styles.courseCard}>
                 <Image
                   source={
                     course.imageUrl
@@ -99,7 +99,7 @@ const ProfileCourse = () => {
                   resizeMode="stretch"
                   style={styles.courseImage}
                 />
-                <View style={styles.courseDetails}>
+                <View key={course._id} style={styles.courseDetails}>
                   <Text style={styles.courseTitle}>{course.title}</Text>
                   <Text style={styles.courseCategory}>
                     {course.categories[0]}

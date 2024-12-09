@@ -3,6 +3,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 35,
   },
   scrollView: {
     flex: 1,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     height: 29,
     alignItems: 'center',
     backgroundColor: '#34CC99',
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     borderRadius: 4,
     paddingVertical: 4,
   },

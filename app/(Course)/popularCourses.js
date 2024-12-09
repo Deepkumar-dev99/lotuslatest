@@ -71,13 +71,13 @@ const popularCourses = () => {
                 style={styles.icon}
               />
               <TextInput style={styles.searchinput} />
-              <Ionicons
+              {/* <Ionicons
                 name="search"
                 size={25}
                 color="#68D391"
                 style={styles.icon}
               />
-              <TextInput style={styles.searchinput} />
+              <TextInput style={styles.searchinput} /> */}
             </View>
             <ScrollView
               horizontal
@@ -87,7 +87,7 @@ const popularCourses = () => {
               <View style={styles.coursePalette}>
                 {courses &&
                   courses.map((course, index) => (
-                    <View style={[styles.paletteBox]}>
+                    <View key={course._id} style={[styles.paletteBox]}>
                       <TouchableOpacity
                         style={styles.iconWrapper}
                         onPress={() =>
@@ -118,11 +118,10 @@ const popularCourses = () => {
               showsHorizontalScrollIndicator={false}
               style={styles.scrollContainer}
             >
-    
               <View style={styles.coursePalette}>
                 {courses &&
                   courses.map((course, index) => (
-                    <View style={[styles.paletteBox]}>
+                    <View key={course._id} style={[styles.paletteBox]}>
                       <TouchableOpacity
                         style={styles.iconWrapper}
                         onPress={() =>

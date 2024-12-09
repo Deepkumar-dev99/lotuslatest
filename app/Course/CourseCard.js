@@ -9,7 +9,7 @@ const CourseCard = ({ title, author, subject, ageRange, id , imageUri }) => {
     router.push(screenName+`${courseId}`); // Use router.push to navigate in Expo Router
   };
   return (
-    <View style={styles.cardContainer}>
+    <View key={id} style={styles.cardContainer}>
       {/* Background Image */}
       <TouchableOpacity
         style={styles.iconWrapper}

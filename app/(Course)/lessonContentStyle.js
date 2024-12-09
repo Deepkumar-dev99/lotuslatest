@@ -3,6 +3,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 35,
   },
   scrollView: {
     flex: 1,
@@ -40,14 +41,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#fff',
   },
-  
+
   descriptionContainer: {
     padding: 20,
   },
   courseLongDescription: {
     fontSize: 14,
     color: '#333',
-    marginTop:50,
+    marginTop: 50,
     marginBottom: 20,
   },
   moduleContainer: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#82c91e',
     borderRadius: 5,
-    height:50,
+    height: 50,
   },
   locked: {
     backgroundColor: '#d3d3d3',
@@ -69,10 +70,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
-  courseImage:{
+  courseImage: {
     width: 60,
     height: 50,
-    borderRadius:5,
+    borderRadius: 5,
   },
   moduleTime: {
     fontSize: 12,
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
     width: 150,
     textAlign: 'left',
   },
-  lock:{
-    alignContent:'center',
+  lock: {
+    alignContent: 'center',
   },
 });
 export default styles

@@ -84,6 +84,12 @@ export const Header = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.menuItem}
+              onPress={() => navigateToScreen('/profileLibrary')}
+            >
+              <Text style={styles.menuText}>Library</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
               onPress={() => navigateToScreen('/profileHome')}
             >
               <Text style={styles.menuText}>Profile Home</Text>
