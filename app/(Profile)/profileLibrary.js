@@ -67,7 +67,13 @@ const ProfileLibrary=() => {
         {[1, 2, 3].map((_, index) => (
           <View key={index} style={styles.courseCard}>
             <Image
-              source={require('../../assets/images/Maths.jpg')}
+              source={
+                course.imageUrl
+                  ? { uri: course.imageUrl }
+                  : {
+                      uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
+                    }
+              }
               resizeMode={'stretch'}
               style={styles.courseImage}
             />

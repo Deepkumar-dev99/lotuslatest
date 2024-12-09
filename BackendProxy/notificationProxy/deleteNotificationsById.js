@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_URL + 'notification';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL + '/notification';
 
 async function deleteNotificationsById(notificationIds) {
   try {

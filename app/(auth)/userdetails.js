@@ -60,7 +60,7 @@ const UserDetails = ({ type = 'student' }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/user/create-user', {
+      const response = await axios.post(process.env.EXPO_PUBLIC_API_URL+ '/user/create-user', {
         firstName,
         lastName,
         email,

@@ -37,7 +37,7 @@ export const Header = () => {
       {/* Logo */}
       <TouchableOpacity
         style={styles.logoContainer}
-        onPress={() => navigateToScreen('/home')}
+        onPress={() => navigateToScreen('/Home')}
       >
         <Image
           source={require('../../assets/images/Mainwhitelogo.png')}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const BASE_URL = process.env.REACT_APP_API_URL + 'notification';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL + '/notification';
 async function getNotificationsByUserId(userId) {
   try {
     const response = await axios.get(`${BASE_URL}/${userId}`);
