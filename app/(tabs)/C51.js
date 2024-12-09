@@ -11,7 +11,6 @@ import {
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router'; // Import useRouter for navigation
-import { useRouter } from 'expo-router'; // Import useRouter for navigation
 import { Header } from './header';
 import { Footer } from './footer';
 import getCourses from '../../BackendProxy/courseProxy/getCourses'; // New API for fetching all courses
