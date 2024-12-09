@@ -86,7 +86,7 @@ export const Header = () => {
               style={styles.menuItem}
               onPress={() => navigateToScreen('/profileHome')}
             >
-              <Text style={styles.menuText}>Settings</Text>
+              <Text style={styles.menuText}>Profile Home</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
               <Text style={[styles.menuText, styles.logoutText]}>Logout</Text>
