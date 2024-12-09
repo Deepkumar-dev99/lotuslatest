@@ -18,7 +18,7 @@ const CourseLayout = () => {
         <GlobalProvider>
           <Stack>
             <Stack.Screen
-              name="popularCourse"
+              name="popularCourses"
               options={{
                 headerShown: false,
               }}

@@ -362,7 +362,6 @@ import { useDispatch, useSelector } from "react-redux";
 import saveUserOnCookies from '../../BackendProxy/cookiesProxy/saveUserCookies'
 import { setUser } from "../../redux/slice/user/userSlice";
 
-
 const CLIENT_ID = "753284500623-m3r3eq90q8jha72001v0874jvieeeiqf.apps.googleusercontent.com";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -416,7 +415,7 @@ const Login = () => {
   const handleLoginSubmit = async () => {
     try {
       setLoading(true);
-      const API_URL = 'http://localhost:5000/user/login-user';
+      const API_URL = process.env.EXPO_PUBLIC_API_URL + '/user/login-user';
       // const API_URL = ' https://9288-76-64-165-196.ngrok-free.app/user/login-user';
 
       const response = await fetch(API_URL, {

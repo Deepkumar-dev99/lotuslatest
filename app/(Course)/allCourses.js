@@ -61,14 +61,21 @@ const allCourses = () => {
       <Header />
       <ScrollView style={styles.scrollView}>
         <View style={styles.searchcontainer}>
-        <Ionicons name="search" size={25} color="#68D391" style={styles.icon} />
-          <TextInput
-            style={styles.searchinput}
+          <Ionicons
+            name="search"
+            size={25}
+            color="#68D391"
+            style={styles.icon}
           />
+          <TextInput style={styles.searchinput} />
         </View>
-          
+
         <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollContainer}
+          >
             {courses.map((course, index) => (
               <CourseCard
                 key={index}
@@ -77,40 +84,49 @@ const allCourses = () => {
                 subject={course.categories[0]} // Assuming you want to display the first tag
                 ageRange={course.age} // Replace this with actual value if available
                 id={course._id}
+                imageUri={course.imageUrl}
               />
             ))}
-            
-            </ScrollView>
-          </View>
-          <View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
-              {courses.map((course, index) => (
-                <CourseCard
-                  key={index}
-                  title={course.title}
-                  author={course.creator.username}
-                  subject={course.categories[0]} // Assuming you want to display the first tag
-                  ageRange={course.age} // Replace this with actual value if available
-                  id={course._id}
-                />
-              ))}
-              
-            </ScrollView>
-          </View>
-         <View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
-              {courses.map((course, index) => (
-                <CourseCard
-                  key={index}
-                  title={course.title}
-                  author={course.creator.username}
-                  subject={course.categories[0]} // Assuming you want to display the first tag
-                  ageRange={course.age} // Replace this with actual value if available
-                  id={course._id}
-                />
-              ))}
-            </ScrollView>
-          </View>
+          </ScrollView>
+        </View>
+        <View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollContainer}
+          >
+            {courses.map((course, index) => (
+              <CourseCard
+                key={index}
+                title={course.title}
+                author={course.creator.username}
+                subject={course.categories[0]} // Assuming you want to display the first tag
+                ageRange={course.age} // Replace this with actual value if available
+                id={course._id}
+                imageUri={course.imageUrl}
+              />
+            ))}
+          </ScrollView>
+        </View>
+        <View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollContainer}
+          >
+            {courses.map((course, index) => (
+              <CourseCard
+                key={index}
+                title={course.title}
+                author={course.creator.username}
+                subject={course.categories[0]} // Assuming you want to display the first tag
+                ageRange={course.age} // Replace this with actual value if available
+                id={course._id}
+                imageUri={course.imageUrl}
+              />
+            ))}
+          </ScrollView>
+        </View>
       </ScrollView>
       <Footer />
     </SafeAreaView>

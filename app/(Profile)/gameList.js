@@ -61,14 +61,12 @@ const GameList= () => {
               <Text style={styles.text7}>{'View by Name'}</Text>
               <Image
                 source={require('../../assets/images/game.jpeg')}
-                resizeMode={'stretch'}
                 style={styles.image6}
               />
             </View>
             <View style={styles.column3}>
               <Image
                 source={require('../../assets/images/game.jpeg')}
-                resizeMode={'stretch'}
                 style={styles.box4}
               />
               <Text style={styles.text8}>{'Title of the Game'}</Text>
@@ -89,7 +87,6 @@ const GameList= () => {
               <View style={styles.column5}>
                 <Image
                   source={require('../../assets/images/game.jpeg')}
-                  resizeMode={'stretch'}
                   style={styles.box4}
                 />
                 <Text style={styles.text8}>{'Title of the Game'}</Text>
@@ -114,7 +111,6 @@ const GameList= () => {
               <Text style={styles.recentText}>{'Recent'}</Text>
               <Image
                 source={require('../../assets/images/game.jpeg')}
-                resizeMode={'stretch'}
                 style={styles.recentImage}
               />
             </View>
@@ -122,7 +118,6 @@ const GameList= () => {
               <View style={styles.cardRow}>
                 <Image
                   source={require('../../assets/images/game.jpeg')}
-                  resizeMode={'stretch'}
                   style={styles.cardImage}
                 />
                 <View style={styles.cardContent}>
@@ -154,7 +149,6 @@ const GameList= () => {
               <View style={styles.cardRow}>
                 <Image
                   source={require('../../assets/images/game.jpeg')}
-                  resizeMode={'stretch'}
                   style={styles.cardImage}
                 />
                 <View style={styles.cardContent}>

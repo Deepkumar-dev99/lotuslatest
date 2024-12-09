@@ -77,16 +77,21 @@ const CourseCard = ({ course }) => (
       {course.subject}
     </Text>
     <Image
-      source={require('../../assets/images/Maths.jpg')}
+      source={
+        course.imageUrl
+          ? { uri: course.imageUrl }
+          : {
+              uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
+            }
+      }
       style={styles.courseImage}
     />
     <View style={styles.courseInfo}>
-    <TouchableOpacity style={styles.continueButton}>
-  <Text style={styles.continueButtonText}>
-    CONTINUE LESSON <Text style={styles.arrow}>→</Text>
-  </Text>
-</TouchableOpacity>
-
+      <TouchableOpacity style={styles.continueButton}>
+        <Text style={styles.continueButtonText}>
+          CONTINUE LESSON <Text style={styles.arrow}>→</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   </TouchableOpacity>
 );

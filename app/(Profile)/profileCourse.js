@@ -15,11 +15,11 @@ import CourseCard from '../Course/CourseCard';
 import styles from './profileCourseStyles'; // Correctly importing styles
 import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
 import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser'
-
+import { useRouter } from 'expo-router';
 const ProfileCourse = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('inProgress');
   const authUser = useSelector((state) => state.user); // Get the user from Redux store
-  console.log(authUser);
 
   const [courses, setCourses] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -27,6 +27,9 @@ const ProfileCourse = () => {
   useEffect(() => {
     fetchEnrolledCourses();
   }, []);
+    const navigateToScreenwithParams = (screenName, courseId) => {
+      router.push(screenName + `${courseId}`); // Use router.push to navigate in Expo Router
+    };
 
   const fetchEnrolledCourses = async () => {
     try {
@@ -78,45 +81,78 @@ const ProfileCourse = () => {
 
         {activeTab === 'inProgress' ? (
           courses.map((course, index) => (
-            <View key={index} style={styles.courseCard}>
-              <Image
-                source={require('../../assets/images/Maths.jpg')}
-                resizeMode="stretch"
-                style={styles.courseImage}
-              />
-              <View style={styles.courseDetails}>
-                <Text style={styles.courseTitle}>{course.title}</Text>
-                <Text style={styles.courseCategory}>
-                  {course.categories[0]}
-                </Text>
-                <View style={styles.progressBar}>
-                  <View style={[styles.progress, { width: course.progress+'%'}]} />
+            <TouchableOpacity
+              style={styles.iconWrapper}
+              onPress={() =>
+                navigateToScreenwithParams('/lessonContent?id=', course._id)
+              } // Change 'ProfileScreen' to your actual screen name
+            >
+              <View key={index} style={styles.courseCard}>
+                <Image
+                  source={
+                    course.imageUrl
+                      ? { uri: course.imageUrl }
+                      : {
+                          uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
+                        }
+                  }
+                  resizeMode="stretch"
+                  style={styles.courseImage}
+                />
+                <View style={styles.courseDetails}>
+                  <Text style={styles.courseTitle}>{course.title}</Text>
+                  <Text style={styles.courseCategory}>
+                    {course.categories[0]}
+                  </Text>
+                  <View style={styles.progressBar}>
+                    <View
+                      style={[
+                        styles.progress,
+                        { width: course.progress + '%' },
+                      ]}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))
         ) : (
           <View>
             {courses.map((course, index) => (
-              <View key={index} style={styles.bookmarkedCourse}>
-                <Image
-                  source={require('../../assets/images/Maths.jpg')}
-                  style={styles.courseBox}
-                />
-                <Text style={styles.courseTitle}>{course.title}</Text>
-                <Text style={styles.courseAuthor}>{course.categories[0]}</Text>
-                <Text style={styles.courseDescription}>
-                  {course.decription}
-                </Text>
-                <View style={styles.tagContainer}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>{course.age}</Text>
-                  </View>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>{course.categories[0]}</Text>
+              <TouchableOpacity
+                style={styles.iconWrapper}
+                onPress={() =>
+                  navigateToScreenwithParams('/lessonContent?id=', course._id)
+                } // Change 'ProfileScreen' to your actual screen name
+              >
+                <View key={index} style={styles.bookmarkedCourse}>
+                  <Image
+                    source={
+                      course.imageUrl
+                        ? { uri: course.imageUrl }
+                        : {
+                            uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
+                          }
+                    }
+                    style={styles.courseBox}
+                  />
+                  <Text style={styles.courseTitle}>{course.title}</Text>
+                  <Text style={styles.courseAuthor}>
+                    {course.categories[0]}
+                  </Text>
+                  <Text style={styles.courseDescription}>
+                    {course.decription}
+                  </Text>
+                  <View style={styles.tagContainer}>
+                    <View style={styles.tag}>
+                      <Text style={styles.tagText}>{course.age}</Text>
+                    </View>
+                    <View style={styles.tag}>
+                      <Text style={styles.tagText}>{course.categories[0]}</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         )}
