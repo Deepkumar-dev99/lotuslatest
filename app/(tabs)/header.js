@@ -24,7 +24,7 @@ export const Header = () => {
     setMenuVisible(false); // Close the menu
     // Add logout logic here, e.g., clear user data from Redux or AsyncStorage
     console.log('User logged out');
-    router.replace('/login'); // Redirect to the login screen
+    router.replace('/signin'); // Redirect to the login screen
   };
 
   return (

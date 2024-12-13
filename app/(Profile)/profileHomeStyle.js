@@ -74,10 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
   commonColumn: {
     width: 114,
     backgroundColor: '#FFFFFF',
