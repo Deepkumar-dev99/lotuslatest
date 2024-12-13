@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -14,10 +14,9 @@ import { useGlobalContext } from '../../context/GlobalProvider';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp'
-import getEnrolledCourses from '../../BackendProxy/courseProxy/getEnrolledCourses'
+import getCoursesByProp from '../../BackendProxy/courseProxy/getCoursesByProp';
+import getEnrolledCourses from '../../BackendProxy/courseProxy/getEnrolledCourses';
 import styles from './profileHomeStyle';
-
 
 const ProfileHome = () => {
   const router = useRouter(); // useRouter for navigation in Expo Router
@@ -43,8 +42,8 @@ const ProfileHome = () => {
   const navigateToScreen = (screenName) => {
     router.push(screenName); // Use router.push to navigate in Expo Router
   };
-  const navigateToScreenwithParams = (screenName,courseId) => {
-    router.push(screenName+`${courseId}`); // Use router.push to navigate in Expo Router
+  const navigateToScreenwithParams = (screenName, courseId) => {
+    router.push(screenName + `${courseId}`); // Use router.push to navigate in Expo Router
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -100,7 +99,7 @@ const ProfileHome = () => {
           >
             {courses &&
               courses.map((course, index) => (
-                <View style={[styles.commonColumn]}>
+                <View key={course._id} style={[styles.commonColumn]}>
                   <TouchableOpacity
                     style={styles.iconWrapper}
                     onPress={() =>
@@ -130,10 +129,9 @@ const ProfileHome = () => {
               ))}
           </ScrollView>
         </View>
-        <Footer />
       </ScrollView>
+      <Footer />
     </SafeAreaView>
   );
 };
 export default ProfileHome;
-

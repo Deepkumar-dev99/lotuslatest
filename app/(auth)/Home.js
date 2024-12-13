@@ -71,7 +71,7 @@ const Carousel = () => {
 };
 
 const CourseCard = ({ course }) => (
-  <TouchableOpacity style={styles.courseCard}>
+  <TouchableOpacity key={course._id} style={styles.courseCard}>
     <Text style={styles.courseTitle} numberOfLines={2}>
       {course.title}
     </Text>
@@ -86,10 +86,9 @@ const CourseCard = ({ course }) => (
               uri: 'https://contenthub-static.grammarly.com/blog/wp-content/uploads/2023/07/Subject-Complement.png',
             }
       }
-      resizeMode='cover'
       style={styles.courseImage}
     />
-    <View style={styles.courseInfo}>
+    <View key={course._id} style={styles.courseInfo}>
       <TouchableOpacity style={styles.continueButton}>
         <Text style={styles.continueButtonText}>
           CONTINUE LESSON <Text style={styles.arrow}>→</Text>
@@ -146,31 +145,40 @@ const Home = () => {
               </Text>
             </View>
             <View style={styles.courseSection}>
-  <Text style={styles.sectionTitle}>Discover Our Course Offerings</Text>
-  {filteredCourses.length > 0 ? (
-    <>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
-        {filteredCourses.map((course) => (
-          <View key={course._id + '-1'} style={styles.courseCardWrapper}>
-            <CourseCard course={course} />
-          </View>
-        ))}
-      </ScrollView>
+              <Text style={styles.sectionTitle}>
+                Discover Our Course Offerings
+              </Text>
+              {filteredCourses.length > 0 ? (
+                <>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.scrollContainer}
+                  >
+                    {filteredCourses.map((course) => (
+                      <View key={course._id} style={styles.courseCardWrapper}>
+                        <CourseCard course={course} />
+                      </View>
+                    ))}
+                  </ScrollView>
 
-      <Text style={styles.sectionTitle}>Our Popular Courses</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollContainer}>
-        {filteredCourses.map((course) => (
-          <View key={course._id + '-2'} style={styles.courseCardWrapper}>
-            <CourseCard course={course} />
-          </View>
-        ))}
-      </ScrollView>
-    </>
-  ) : (
-    <Text style={styles.loadingText}>No courses found</Text>
-  )}
-</View>
-
+                  <Text style={styles.sectionTitle}>Our Popular Courses</Text>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.scrollContainer}
+                  >
+                    {filteredCourses.map((course) => (
+                      <View key={course._id} style={styles.courseCardWrapper}>
+                        <CourseCard course={course} />
+                      </View>
+                    ))}
+                  </ScrollView>
+                </>
+              ) : (
+                <Text style={styles.loadingText}>No courses found</Text>
+              )}
+            </View>
           </>
         )}
       </ScrollView>
@@ -183,6 +191,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop: 35,
   },
   content: {
     flex: 1,
@@ -285,7 +294,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10, // Add spacing between cards
     overflow: 'hidden', // Ensure content stays within bounds
   },
-  
+
   courseImage: {
     width: '100%',
     height: '60%', // Occupies 60% of the card's height
@@ -293,7 +302,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
-  
 
   courseInfo: {
     padding: 10,
@@ -302,7 +310,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  
+
   courseTitle: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -324,45 +332,44 @@ const styles = StyleSheet.create({
   continueButtonText: {
     color: '#000000',
     fontSize: 12,
-    textAlign:'right',
+    textAlign: 'right',
     justifyContent: 'flex-end', // Aligns items vertically at the bottom
-    alignItems: 'flex-end', 
+    alignItems: 'flex-end',
     fontWeight: 'bold',
   },
   arrow: {
     fontSize: 12,
     fontWeight: 'bold',
     justifyContent: 'flex-end', // Aligns items vertically at the bottom
-    alignItems: 'flex-end', 
+    alignItems: 'flex-end',
   },
-  
+
   loadingText: {
     textAlign: 'center',
     padding: 20,
     color: '#666',
   },
 
+  secondCourseCard: {
+    // Adjustments for second card's container
+    borderWidth: 1,
+    borderColor: '#E75480',
+    paddingBottom: 16, // More space for the button
+  },
 
-secondCourseCard: {
-  // Adjustments for second card's container
-  borderWidth: 1,
-  borderColor: '#E75480',
-  paddingBottom: 16, // More space for the button
-},
+  secondCourseInfo: {
+    // Align button to the bottom-right
+    flexDirection: 'row',
+    justifyContent: 'flex-end', // Move button to the extreme right
+    paddingBottom: 4, // Minimal padding
+  },
 
-secondCourseInfo: {
-  // Align button to the bottom-right
-  flexDirection: 'row',
-  justifyContent: 'flex-end', // Move button to the extreme right
-  paddingBottom: 4, // Minimal padding
-},
-
-secondContinueButton: {
-  // Styling for the button in the second card
-  justifyContent: 'flex-end', // Push button content to the right
-  marginRight: 0, // Remove extra space on the right
-  paddingHorizontal: 8, // Minimal horizontal padding
-  paddingVertical: 4, // Minimal vertical padding
-},
+  secondContinueButton: {
+    // Styling for the button in the second card
+    justifyContent: 'flex-end', // Push button content to the right
+    marginRight: 0, // Remove extra space on the right
+    paddingHorizontal: 8, // Minimal horizontal padding
+    paddingVertical: 4, // Minimal vertical padding
+  },
 });
 export default Home;

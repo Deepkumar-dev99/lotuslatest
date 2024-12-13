@@ -3,6 +3,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 35,
   },
   column3: {
     width: 93,
@@ -72,10 +73,6 @@ const styles = StyleSheet.create({
     color: '#272727',
     fontSize: 12,
     textAlign: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
   },
   commonColumn: {
     width: 114,

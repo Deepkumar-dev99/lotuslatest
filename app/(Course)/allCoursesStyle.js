@@ -3,12 +3,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 35,
   },
-  container_cource:{
-    marginTop:16,
+  container_cource: {
+    marginTop: 16,
     marginBottom: 16,
   },
-  container_shadow:{
+  container_shadow: {
     borderRadius: 1, // Adjust to match the shape of your gradient box
     overflow: 'hidden', // Ensures shadow doesn't spill outside the border radius
     shadowColor: '#000', // Shadow color
@@ -83,11 +84,11 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     marginTop: 10,
     marginBottom: 5,
-    marginLeft:15,
-    marginRight:15,
+    marginLeft: 15,
+    marginRight: 15,
     borderColor: '#68D391', // Border color
     borderWidth: 2, // Border width
-    borderRadius: 8, 
+    borderRadius: 8,
   },
   searchicon: {
     width: 20,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   searchinput: {
     flex: 1,
     fontSize: 16,
-    color: '#333', 
+    color: '#333',
   },
 });
 export default styles

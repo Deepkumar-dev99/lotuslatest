@@ -1,40 +1,51 @@
-import React from 'react';
-import { View, ScrollView, Image, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  View,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './profileLibraryStyles';
+import getAllEnrollmentsUser from '../../BackendProxy/courseProxy/getAllEnrollmentsUser';
+import { Header } from '../(tabs)/header';
+import { Footer } from '../(tabs)/footer';
 
-const ProfileLibrary=() => {
+const ProfileLibrary = () => {
+  const authUser = useSelector((state) => state.user); // Get the user from Redux store
+
+  const [courses, setCourses] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  useEffect(() => {
+    fetchEnrolledCourses();
+  }, []);
+  const fetchEnrolledCourses = async () => {
+    try {
+      const res = await getAllEnrollmentsUser(authUser._id);
+      console.log('Fetched Enrollments: ', res);
+
+      console.log(res);
+      const mappedCourses = res.data.map((enrollment) => ({
+        ...enrollment.course,
+        progress: enrollment.progress, // Add the progress from enrollment
+      }));
+
+      setCourses(mappedCourses);
+      setLoaded(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Failed to load courses');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
+      <Header />
       <ScrollView style={styles.scrollView}>
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          colors={['#CA6955', '#CF7067', '#D26187']}
-          style={styles.headerContainer}
-        >
-          <Image
-            source={require('../../assets/images/Mainwhitelogo.png')}
-            resizeMode={'stretch'}
-            style={styles.logo}
-          />
-          <Text style={styles.headerTitle}>{'Lotus Learning'}</Text>
-          <View style={styles.flexFill}></View>
-          <View style={styles.iconWrapper}>
-            <Image
-              source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-              resizeMode={'stretch'}
-              style={styles.iconSmall}
-            />
-            <Image
-              source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-              resizeMode={'stretch'}
-              style={styles.iconTiny}
-            />
-          </View>
-        </LinearGradient>
-
         <Text style={styles.pageTitle}>{'Library'}</Text>
 
         <View style={styles.categoriesContainer}>
@@ -64,8 +75,8 @@ const ProfileLibrary=() => {
           )}
         </View>
 
-        {[1, 2, 3].map((_, index) => (
-          <View key={index} style={styles.courseCard}>
+        {courses.map((course) => (
+          <View key={course._id} style={styles.courseCard}>
             <Image
               source={
                 course.imageUrl
@@ -78,15 +89,16 @@ const ProfileLibrary=() => {
               style={styles.courseImage}
             />
             <View style={styles.courseDetails}>
-              <Text style={styles.courseTitle}>{'Title of Course Name'}</Text>
-              <Text style={styles.courseCategory}>{'Art History'}</Text>
+              <Text style={styles.courseTitle}>{course.title}</Text>
+              <Text style={styles.courseCategory}>{course.category}</Text>
               <View style={styles.progressBadge}>
-                <Text style={styles.progressText}>{'100%'}</Text>
+                <Text style={styles.progressText}>{course.progress}</Text>
               </View>
             </View>
           </View>
         ))}
       </ScrollView>
+      <Footer />
     </SafeAreaView>
   );
 };

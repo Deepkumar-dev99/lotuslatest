@@ -3,6 +3,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    paddingTop: 35,
   },
   box: {
     flex: 1,
